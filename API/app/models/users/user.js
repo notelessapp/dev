@@ -2,8 +2,12 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
-var userSchema = new Schema({
-  name: String
-});
+var UserSchema = new Schema({
+	name: String,
 
-module.exports = mongoose.model('User', userSchema);
+
+	
+	__v: {type:Number, select: false}
+}, {versionKey: false});
+
+module.exports = mongoose.model('User', UserSchema);
