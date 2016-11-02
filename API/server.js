@@ -29,8 +29,8 @@ router.get('/', function(req, res){
 router.route('/users')
 // CREATE A USER
     .post(function(req, res){
-      var user = new User();
-      user.name = req.body.name;
+      var user = new User(req.body);
+
 
 // SAVE THE USER & CHECK FOR ERRORS
       user.save(function(err){
