@@ -75,6 +75,7 @@ router.route('/users/:user_id')
         });
       });
     })
+// DELETE THE USER
     .delete(function(req, res){
       User.remove({
         _id: req.params.user_id
@@ -84,6 +85,68 @@ router.route('/users/:user_id')
         res.json({message: 'User deleted!'});
       });
     });
+
+// note ROUTES
+    router.route('/notes')
+// CREATE A NOTe
+        .post(function(req, res){
+          var note = new Note(req.body);
+
+
+// SAVE THE Notes & CHECK FOR ERRORS
+          note.save(function(err){
+            if (err)
+                res.send(err);
+
+            res.json({message:'note created'});
+          });
+        })
+// GETTING notes
+        .get(function(req, res){
+          Note.find(function(err, note){
+            if (err)
+                res.send(err);
+            res.json(note);
+          });
+        });
+
+// SINGLE-note ROUTE
+    router.route('/notes/:note_id')
+// GETTING A SINGLE note
+        .get(function(req, res){
+          Note.findById(req.params.note_id, function(err, note){
+            if (err)
+                res.send(err);
+            res.json(note);
+          });
+        })
+
+// UPDATE A note
+        .put(function(req, res){
+          Note.findById(req.params.note_id, function(err, note){
+            if (err)
+                res.send(err);
+            note.name = req.body.name;
+
+// SAVING THE note UPDATE
+            note.save(function(err){
+            if (err)
+                res.send(err);
+            res.json({message: 'Note updated!'});
+            });
+          });
+        })
+// DELETE THE note
+        .delete(function(req, res){
+          Note.remove({
+            _id: req.params.note_id
+          }, function(err, note){
+            if (err)
+                res.send(err);
+            res.json({message: 'Note deleted!'});
+          });
+        });
+
 
 // REGISTERING ROUTES
 app.use('/api', router);
@@ -96,5 +159,6 @@ console.log('Server up and running on ' + port);
 var mongoose = require('mongoose');
 mongoose.connect('mongodb://noteless:noteless123@ds139197.mlab.com:39197/notelessdb');
 
-// IMPLEMENTING USERSCHEMA
+// IMPLEMENTING SCHEMAS
+var Note = require('./app/models/notes/note');
 var User = require('./app/models/users/user');
