@@ -12,7 +12,8 @@ var NoteSchema = new Schema({
     type: Number,
     created: {type: Date, default: Date.now},
     modified: Date,
-    locked: Boolean
+    locked: Boolean,
+    pinned: Boolean
 }, {versionKey: false});
 //{
     //"owner": "1",
