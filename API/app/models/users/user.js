@@ -17,7 +17,8 @@ var UserSchema = new Schema({
 				template: Number,
 			}]}]
 
-
 }, {versionKey: false});
+
+
 
 module.exports = mongoose.model('User', UserSchema);

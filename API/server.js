@@ -86,14 +86,14 @@ router.route('/users/:user_id')
       });
     });
 
-// note ROUTES
+// NOTES ROUTES
     router.route('/notes')
-// CREATE A NOTe
+// CREATE A NOTES
         .post(function(req, res){
           var note = new Note(req.body);
 
 
-// SAVE THE Notes & CHECK FOR ERRORS
+// SAVE THE NOTES & CHECK FOR ERRORS
           note.save(function(err){
             if (err)
                 res.send(err);
@@ -101,7 +101,7 @@ router.route('/users/:user_id')
             res.json({message:'note created'});
           });
         })
-// GETTING notes
+// GETTING NOTES
         .get(function(req, res){
           Note.find(function(err, note){
             if (err)
@@ -110,9 +110,9 @@ router.route('/users/:user_id')
           });
         });
 
-// SINGLE-note ROUTE
+// SINGLE-NOTES ROUTE
     router.route('/notes/:note_id')
-// GETTING A SINGLE note
+// GETTING A SINGLE NOTES
         .get(function(req, res){
           Note.findById(req.params.note_id, function(err, note){
             if (err)
@@ -121,14 +121,14 @@ router.route('/users/:user_id')
           });
         })
 
-// UPDATE A note
+// UPDATE NOTES
         .put(function(req, res){
           Note.findById(req.params.note_id, function(err, note){
             if (err)
                 res.send(err);
             note.name = req.body.name;
 
-// SAVING THE note UPDATE
+// SAVING THE NOTES UPDATE
             note.save(function(err){
             if (err)
                 res.send(err);
@@ -136,7 +136,7 @@ router.route('/users/:user_id')
             });
           });
         })
-// DELETE THE note
+// DELETE THE NOTES
         .delete(function(req, res){
           Note.remove({
             _id: req.params.note_id
