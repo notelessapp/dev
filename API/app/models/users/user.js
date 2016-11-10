@@ -10,6 +10,7 @@ var UserSchema = new Schema({
         required: true
     },
 		password: {
+			//should add a unique as true here aswell at a later point MS
         type: String,
         required: true
     },
