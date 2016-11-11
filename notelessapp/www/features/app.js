@@ -29,21 +29,21 @@ angular.module('starter', ['ionic'])
   .state('outside', {
     url: '/outside',
     abstract: true,
-    templateUrl: 'templates/outside.html'
+    templateUrl: 'features/login/outside.html'
   })
   .state('outside.login', {
     url: '/login',
-    templateUrl: 'templates/login.html',
+    templateUrl: 'features/login/login.html',
     controller: 'LoginCtrl'
   })
   .state('outside.register', {
     url: '/register',
-    templateUrl: 'templates/register.html',
+    templateUrl: 'features/login/register.html',
     controller: 'RegisterCtrl'
   })
   .state('inside', {
     url: '/inside',
-    templateUrl: 'templates/inside.html',
+    templateUrl: 'features/login/inside.html',
     controller: 'InsideCtrl'
   });
 
