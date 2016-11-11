@@ -1,0 +1,5 @@
+/* here we have all the global parameters, like .block-auto etc. */
+
+/* -- minify and combine style sheets and make them external, then the browser or device can cache it?
+ of the CSS is in multiple files, there are multiple requests made before the page can be displayed
+ on a browser, therefore slowing down the pageload */
