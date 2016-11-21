@@ -8,9 +8,6 @@
         <button class="button button-icon button-clear ion-navicon" menu-toggle="left">
         </button>
       </ion-nav-buttons>
-      <ion-nav-buttons side="right">
-        <button class="button button-clear" ng-click="logout()">Logout</button>
-      </ion-nav-buttons>
     </ion-nav-bar>
     <ion-nav-view name="menuContent"></ion-nav-view>
   </ion-side-menu-content>
@@ -20,9 +17,10 @@
       <ion-list>
         <ion-item>
           <div class="item item-avatar" style="border-style:none;">
-            <img src="{{avatar}}">
+            <img ng-src="{{avatar}}">
             <h2>{{username}}</h2>
-            <p>{{occupation}}</p>
+            <p ng-if="occupation">{{occupation}}</p>
+            <p ng-if="!occupation">No occupation</p>
           </div>
         </ion-item>
         <ion-item menu-close href="#/app/mynotes">
@@ -36,6 +34,9 @@
         </ion-item>
         <ion-item menu-close href="#/app/friends">
           Friends
+        </ion-item>
+        <ion-item menu-close ng-click="logout()">
+          Logout
         </ion-item>
       </ion-list>
     </ion-content>

@@ -4,7 +4,10 @@ angular.module('starter')
 
   $http.get(API_ENDPOINT.url + '/memberinfo').then(function(result) {
     $scope.username = result.data.name;
+    $scope.occupation = result.data.occupation;
+    $scope.avatar = result.data.avatar;
   })
+
 
 
   $scope.logout = function() {

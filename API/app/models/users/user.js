@@ -6,25 +6,25 @@ var bcrypt = require('bcrypt');
 var UserSchema = new Schema({
 		name: {
         type: String,
-        unique: true,
-        required: true
+        unique: true
     },
 		password: {
 			//should add a unique as true here aswell at a later point MS
-        type: String,
-        required: true
+        type: String
     },
 		fullname: String,
+		occupation: String,
 		email: String,
 		paid: Number,
-		avatar: String,
+		avatar: {type: String, default: "https://www.gravatar.com/avatar/00000000000000000000000000000000?d=mm&f=y"},
 		notes: [{
 			title: String,
 			locked: Boolean,
 			date: {type: Date, default: Date.now},
 			presets: [{
 				template: Number,
-			}]}]
+			}]}],
+            required: ["name", "password"]
 
 }, {versionKey: false});
 
