@@ -8,10 +8,22 @@
   <ion-content class="padding">
     <div class="card">
       <div class="item item-text-wrap">
-        {{memberinfo}}
+        {{username}} {{email}} {{_id}}
       </div>
     </div>
-    <button class="button button-full button-assertive" ng-click="destroySession()">
+
+  <label class="item item-input">
+      <input type="text" placeholder="Name" ng-model="user.name">
+    </label>
+    <label class="item item-input">
+      <input type="password" placeholder="Password" ng-model="user.password">
+    </label>
+  </div>
+  <button class="button button-full button-positive" ng-click="updateUser()">
+    Save
+  </button>
+
+  <button class="button button-full button-assertive" ng-click="destroySession()">
       Destroy token
     </button>
     <button class="button button-full button-balanced" ng-click="getInfo()">

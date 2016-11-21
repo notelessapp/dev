@@ -50,8 +50,22 @@ angular.module('starter')
 
   $scope.getInfo = function() {
     //getting the userinformation from the API
+
     $http.get(API_ENDPOINT.url + '/memberinfo').then(function(result) {
-      $scope.memberinfo = result.data.msg;
+      $scope._id = result.data._id;
+      $scope.username = result.data.name;
+      $scope.email = result.data.email;
+    });
+  };
+  //function to update user info
+  $scope.updateUser = function() {
+    //$scope._id = result.data._id; //+ $scope._id
+    $http.put(API_ENDPOINT.url + '/users/' + $scope._id).success(function (result) {
+      $scope.username = "Test";
+    //.then(function(result) { //result
+    //  name = req.body.name;
+      //return result;
+
     });
   };
 
