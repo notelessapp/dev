@@ -41,10 +41,47 @@ angular.module('starter', ['ionic'])
     templateUrl: 'features/login/register.html',
     controller: 'RegisterCtrl'
   })
+  .state('app', {
+    url: '/app',
+    abstract: true,
+    templateUrl: 'features/menu/menu.html'
+  })
   .state('inside', {
     url: '/inside',
     templateUrl: 'features/login/inside.html',
     controller: 'InsideCtrl'
+  })
+  .state('app.mynotes', {
+    url: '/mynotes',
+    views: {
+      'menuContent': {
+        templateUrl: 'features/notes/mynotes.html'
+      }
+    }
+  })
+  .state('app.friends', {
+    url: '/friends',
+    views: {
+      'menuContent': {
+        templateUrl: 'features/friends/friends.html'
+      }
+    }
+  })
+  .state('app.profile', {
+    url: '/profile',
+    views: {
+      'menuContent': {
+        templateUrl: 'features/profile/profile.html'
+      }
+    }
+  })
+  .state('app.groups', {
+    url: '/groups',
+    views: {
+      'menuContent': {
+        templateUrl: 'features/groups/groups.html'
+      }
+    }
   });
 
   $urlRouterProvider.otherwise('/outside/login');

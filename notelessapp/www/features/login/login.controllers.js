@@ -9,7 +9,7 @@ angular.module('starter')
   //validating the userinput on the API/database
   $scope.login = function() {
     AuthService.login($scope.user).then(function(msg) {
-      $state.go('inside');
+      $state.go('app.mynotes');
     }, function(errMsg) {
       var alertPopup = $ionicPopup.alert({
         title: 'Login failed!',
