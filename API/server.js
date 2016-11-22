@@ -156,6 +156,8 @@ router.route('/users/:user_id')
         if (err)
             return res.send(err);
             user.name = req.body.name;
+            user.password = req.body.password;
+            user.email = req.body.email;
 
 // SAVING THE USER UPDATE
         user.save(function(err){

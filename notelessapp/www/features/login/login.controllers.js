@@ -55,23 +55,20 @@ angular.module('starter')
       $scope._id = result.data._id;
       $scope.username = result.data.name;
       $scope.email = result.data.email;
+      $scope.user = {};
     });
   };
   //function to update user info
   $scope.updateUser = function() {
     $scope.user = {
-      name: 'bob22'
+      name: $scope.user.name,
+      password: $scope.user.password
     };
-    $http.put(API_ENDPOINT.url + '/users/' + $scope._id, $scope.user).success(function(data, status, headers) {
-      $scope.ServerResponse = $scope.user;
-      console.log($scope.ServerResponse);
-    })
-    .error(function (data, status) {
-      $scope.ServerResponse =  htmlDecode("Data: " + data +
-                   "\n\n\n\nstatus: " + status +
-                   "\n\n\n\nheaders: " + header +
-                   "\n\n\n\nconfig: " + config);
-           });
+    $http.put(API_ENDPOINT.url + '/users/' + $scope._id, $scope.user).success(function(resolve) {
+      console.log($scope.user.name, $scope.user.password);
+      $scope.ServerResponse = $scope.test;
+
+    });
        };
 
 
