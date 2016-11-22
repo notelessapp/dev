@@ -206,6 +206,7 @@ angular.module('starter')
 
       this.target.style.willChange = 'initial';
       this.target.style.transform = 'none';
+      this.target.style.opacity = 1;
       this.target = null;
     }
   }

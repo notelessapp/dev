@@ -2,7 +2,7 @@ html, body {
   margin: 0;
   padding: 0;
   background: #FAFAFA;
-  font-family: Arial;
+  font-family: 'Roboto';
   font-size: 30px;
   color: #333;
 }
@@ -14,7 +14,7 @@ html, body {
 .card-container {
   width: 100%;
   max-width: 450px;
-  padding: 16px;
+  padding: 26px;
   margin: 0 auto;
 }
 
