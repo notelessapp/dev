@@ -59,15 +59,27 @@ angular.module('starter')
   };
   //function to update user info
   $scope.updateUser = function() {
-    //$scope._id = result.data._id; //+ $scope._id
-    $http.put(API_ENDPOINT.url + '/users/' + $scope._id).success(function (result) {
-      $scope.username = "Test";
+    $scope.user = {
+      name: 'bob22'
+    };
+    $http.put(API_ENDPOINT.url + '/users/' + $scope._id, $scope.user).success(function(data, status, headers) {
+      $scope.ServerResponse = $scope.user;
+      console.log($scope.ServerResponse);
+    })
+    .error(function (data, status) {
+      $scope.ServerResponse =  htmlDecode("Data: " + data +
+                   "\n\n\n\nstatus: " + status +
+                   "\n\n\n\nheaders: " + header +
+                   "\n\n\n\nconfig: " + config);
+           });
+       };
+
+
+
+
     //.then(function(result) { //result
     //  name = req.body.name;
       //return result;
-
-    });
-  };
 
 //this is the logout function
   $scope.logout = function() {

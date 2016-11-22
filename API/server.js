@@ -11,6 +11,9 @@ var config      = require('./config/database'); // get db config file
 var User        = require('./app/models/users/user'); // get the mongoose model
 var port        = process.env.PORT || 8080; // SET PORT TO 8080
 var jwt         = require('jwt-simple');
+var cors = require('cors');
+
+app.use(cors());
 
 // CONFIGURE APP USING BODYPARSER
 app.use(bodyParser.urlencoded({extended:true}));
@@ -48,6 +51,7 @@ app.listen(port);
 console.log('Server up and running on ' + port);
 
 // DATABASE CONNECTION
+mongoose.Promise = global.Promise
 mongoose.connect(config.database);
 
 // pass passport for configuration
@@ -141,8 +145,8 @@ router.route('/users/:user_id')
     .get(function(req, res){
       User.findById(req.params.user_id, function(err, user){
         if (err)
-            res.send(err);
-        res.json(user);
+          return res.send(err);
+        return res.json(user);
       });
     })
 
@@ -150,13 +154,13 @@ router.route('/users/:user_id')
     .put(function(req, res){
       User.findById(req.params.user_id, function(err, user){
         if (err)
-            res.send(err);
-        user.name = req.body.name;
+            return res.send(err);
+            user.name = req.body.name;
 
 // SAVING THE USER UPDATE
         user.save(function(err){
         if (err)
-            res.send(err);
+          return res.send(err);
         res.json({message: 'User updated!'});
         });
       });
