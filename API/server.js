@@ -69,7 +69,7 @@ router.get('/memberinfo', passport.authenticate('jwt', { session: false}), funct
   if (token) {
     var decoded = jwt.decode(token, config.secret);
     User.findOne({
-      name: decoded.name
+      _id: decoded._id
     }, function(err, user) {
         if (err) throw err;
 
@@ -156,9 +156,10 @@ router.route('/users/:user_id')
         if (err)
             return res.send(err);
             user.name = req.body.name;
-            user.password = req.body.password;
             user.email = req.body.email;
-
+            user.fullname = req.body.fullname;
+            user.occupation = req.body.occupation;
+        		user.email = req.body.email;
 // SAVING THE USER UPDATE
         user.save(function(err){
         if (err)

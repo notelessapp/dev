@@ -99,14 +99,14 @@ angular.module('starter')
       let screenX = this.currentX - this.startX;
       const threshold = this.targetBCR.width * 0.35;
       if (Math.abs(screenX) > threshold) {
-        let ConfirmDismiss = prompt("Are you sure you want to delete this note?");
-        if(ConfirmDismiss === "yes"){
+        let ConfirmDismiss = confirm("Are you sure you want to delete this note?");
+        if(ConfirmDismiss){
           this.targetX = (screenX > 0) ?
               this.targetBCR.width :
               -this.targetBCR.width;
-            }else if(ConfirmDismiss === "no"){
-              this.resetTarget();
-            }
+        }else{
+          this.resetTarget();
+        }
       }
 
       this.draggingCard = false;
