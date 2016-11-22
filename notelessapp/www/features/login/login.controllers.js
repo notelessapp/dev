@@ -62,10 +62,13 @@ angular.module('starter')
   $scope.updateUser = function() {
     $scope.user = {
       name: $scope.user.name,
-      password: $scope.user.password
+      password: $scope.user.password,
+      fullname: $scope.user.fullname,
+      occupation: $scope.user.occupation,
+      email: $scope.user.email
     };
     $http.put(API_ENDPOINT.url + '/users/' + $scope._id, $scope.user).success(function(resolve) {
-      console.log($scope.user.name, $scope.user.password);
+      console.log($scope.user);
       $scope.ServerResponse = $scope.test;
 
     });
