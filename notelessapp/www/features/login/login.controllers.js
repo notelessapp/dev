@@ -54,7 +54,10 @@ angular.module('starter')
     $http.get(API_ENDPOINT.url + '/memberinfo').then(function(result) {
       $scope._id = result.data._id;
       $scope.username = result.data.name;
+      $scope.fullname = result.data.fullname;
       $scope.email = result.data.email;
+      $scope.occupation = result.data.occupation;
+      $scope.password = result.data.password;
       $scope.user = {};
     });
   };
@@ -68,9 +71,9 @@ angular.module('starter')
       email: $scope.user.email
     };
     $http.put(API_ENDPOINT.url + '/users/' + $scope._id, $scope.user).success(function(resolve) {
-      console.log($scope.user);
+      //console.log($scope.user);
       $scope.ServerResponse = $scope.test;
-
+      $scope.getInfo();
     });
        };
 
