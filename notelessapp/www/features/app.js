@@ -48,11 +48,6 @@ angular.module('starter', ['ionic'])
     abstract: true,
     templateUrl: 'features/menu/menu.html'
   })
-  .state('inside', {
-    url: '/inside',
-    templateUrl: 'features/login/inside.html',
-    controller: 'InsideCtrl'
-  })
   .state('app.mynotes', {
     url: '/mynotes',
     views: {
@@ -73,7 +68,8 @@ angular.module('starter', ['ionic'])
     url: '/profile',
     views: {
       'menuContent': {
-        templateUrl: 'features/profile/profile.html'
+        templateUrl: 'features/profile/profile.html',
+        controller: 'InsideCtrl'
       }
     }
   })

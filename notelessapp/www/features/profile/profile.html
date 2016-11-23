@@ -1,5 +1,37 @@
-<ion-view view-title="Your Profile">
+<ion-view view-title="Your Profile" ng-init="getInfo()">
   <ion-content>
-    <h1>PROFIL MED STIL</h1>
+    <div class="card-container">
+      <label>Name</label>
+      <label class="item item-input">
+
+          <input type="text" placeholder="{{username}}" ng-model="user.name">
+        </label>
+      <label>Password</label>
+        <label class="item item-input">
+          <input type="password" placeholder="{{email}}" ng-model="user.password">
+        </label>
+      <label>Password</label>
+        <label class="item item-input">
+          <input type="text" placeholder="" ng-model="user.fullname">
+        </label>
+      <label>Occupation</label>
+        <label class="item item-input">
+          <input type="text" placeholder="{{occupation}}" ng-model="user.occupation">
+        </label>
+    <label>Email</label>
+        <label class="item item-input">
+
+          <input type="text" placeholder="{{email}}" ng-model="user.email">
+        </label>
+
+      <button class="button button-full button-positive" ng-click="updateUser()">
+        Save
+      </button>
+       {{ ServerResponse }}
+
+      <button class="button button-full button-assertive" ng-click="destroySession()">
+          Destroy token
+        </button>
+    </div>
   </ion-content>
 </ion-view>
