@@ -58,6 +58,7 @@ angular.module('starter')
       $scope.email = result.data.email;
       $scope.occupation = result.data.occupation;
       $scope.password = result.data.password;
+      //Making the Scope.user to an object ready to parse updates
       $scope.user = {};
     });
   };
@@ -71,7 +72,7 @@ angular.module('starter')
       email: $scope.user.email
     };
     $http.put(API_ENDPOINT.url + '/users/' + $scope._id, $scope.user).success(function(resolve) {
-      //console.log($scope.user);
+      console.log($scope.user);
       $scope.ServerResponse = $scope.test;
       $scope.getInfo();
     });
