@@ -62,7 +62,6 @@ angular.module('starter')
 
     //onStart function, fires when the user starts touching or clicking on the card
     onStart (evt) {
-      console.log('card moving');
       if (this.target)
         return;
 
