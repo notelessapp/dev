@@ -110,7 +110,11 @@ router.post('/signup', function(req, res) {
       if (err) {
         return res.json({success: false, msg: 'Username already exists.'});
       }
-      res.json({success: true, msg: 'Successful created new user.'});
+      if (!err){
+        User.find()
+        .exec(function(err, user) {console.log(JSON.stringify(user, null, "\t"))})
+        res.json({success: true, msg: 'Successful created new user.'});
+      }
     });
   }
 });
@@ -126,8 +130,11 @@ router.route('/users')
       user.save(function(err){
         if (err)
             res.send(err);
-
-        res.json({message:'User created'});
+        if (!err){
+            User.find({})
+            .exec(function(err, user) {console.log(JSON.stringify(user, null, "\t"))})
+            res.json({message:'User created'});
+        }
       });
     })
 // GETTING USERS
@@ -135,7 +142,12 @@ router.route('/users')
       User.find(function(err, users){
         if (err)
             res.send(err);
-        res.json(users);
+        if (!err){
+            User.find({})
+            .exec(function(err, user) {console.log(JSON.stringify(user, null, "\t"))})
+            res.json(users);
+        }
+
       });
     });
 
@@ -146,7 +158,12 @@ router.route('/users/:user_id')
       User.findById(req.params.user_id, function(err, user){
         if (err)
           return res.send(err);
-        return res.json(user);
+        if (!err){
+            User.findById(req.params.user_id)
+            .exec(function(err, user) {console.log(JSON.stringify(user, null, "\t"))})
+            return res.json(user);
+        }
+
       });
     })
 
@@ -162,9 +179,13 @@ router.route('/users/:user_id')
         		user.email = req.body.email;
 // SAVING THE USER UPDATE
         user.save(function(err){
-        if (err)
-          return res.send(err);
-        res.json({message: 'User updated!'});
+          if (err)
+            return res.send(err);
+          if (!err){
+            User.findById(req.params.user_id)
+            .exec(function(err, user) {console.log(JSON.stringify(user, null, "\t"))})
+            res.json({message: 'User updated!'});
+          }
         });
       });
     })
@@ -218,8 +239,12 @@ router.post('/authenticate', function(req, res) {
           note.save(function(err){
             if (err)
                 res.send(err);
-
-            res.json({message:'note created'});
+            if (!err){
+              Note.find({}).
+              populate('owner').
+              exec(function(err, note) {console.log(JSON.stringify(note, null, "\t"))})
+                  res.json({message:'note created'});
+              }
           });
         })
 // GETTING NOTES
@@ -227,7 +252,11 @@ router.post('/authenticate', function(req, res) {
           Note.find(function(err, note){
             if (err)
                 res.send(err);
-            res.json(note);
+            if (!err) {
+              Note.find({})
+              .exec(function(err, note) {console.log(JSON.stringify(note, null, "\t"))})
+              res.json(note);
+            }
           });
         });
 
@@ -238,7 +267,11 @@ router.post('/authenticate', function(req, res) {
           Note.findById(req.params.note_id, function(err, note){
             if (err)
                 res.send(err);
-            res.json(note);
+            if (!err){
+              Note.findById(req.params.note_id)
+              .exec(function(err, note) { console.log(JSON.stringify(note, null, "\t")) })
+              res.json(note);
+            }
           });
         })
 
@@ -247,13 +280,18 @@ router.post('/authenticate', function(req, res) {
           Note.findById(req.params.note_id, function(err, note){
             if (err)
                 res.send(err);
-            note.name = req.body.name;
+            note.title = req.body.title;
+            note.content = req.body.content;
 
 // SAVING THE NOTES UPDATE
             note.save(function(err){
-            if (err)
-                res.send(err);
-            res.json({message: 'Note updated!'});
+              if (err)
+                  res.send(err);
+              if (!err){
+                  Note.findById(req.params.note_id)
+                  .exec(function(err, note) { console.log(JSON.stringify(note, null, "\t")) })
+                  res.json({message: 'Note updated!'});
+              }
             });
           });
         })
