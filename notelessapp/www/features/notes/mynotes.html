@@ -1,13 +1,60 @@
-<ion-view view-title="My Notes">
-  <ion-content>
-    <div class="card-container">
-      <div class="card">Das Surma</div>
-      <div class="card">Aerotwist</div>
-      <div class="card">Kinlanimus Maximus</div>
-      <div class="card">Addyoooooooooo</div>
-      <div class="card">Gaunty McGaunty Gaunt</div>
-      <div class="card">Jack Archibungle</div>
-      <div class="card">Sam "The Dutts" Dutton</div>
-    </div>
-  </ion-content>
-</ion-view>
+<body ng-controller="MyCtrl">
+
+    <ion-header-bar class="bar bar-subheader custom bar-energized">
+      <div class="buttons">
+        <button class="button button-icon icon ion-ios-minus-outline"
+          ng-click="data.showDelete = !data.showDelete; data.showReorder = false"></button>
+      </div>
+      <h1 class="title">Ionic Delete/Option Buttons</h1>
+      <div class="buttons">
+        <button class="button" ng-click="data.showDelete = false; data.showReorder = !data.showReorder">
+            Reorder
+        </button>
+      </div>
+    </ion-header-bar>
+
+    <ion-content>
+
+      <!-- The list directive is great, but be sure to also checkout the collection repeat directive when scrolling through large lists -->
+
+      <!-- <ion-list show-delete="data.showDelete" sortable draggable=".card" sorted="onReorder($fromIndex, $toIndex)" show-reorder="data.showReorder">
+
+        <ion-item ng-repeat="item in items"
+                  item="item"
+                  class="item-remove-animate" ng-click="edit(item)"
+                  on-release="release($event)" href="#/item/{{item.id}}">
+          Item {{ item.id }}
+          <ion-delete-button class="ion-minus-circled"
+                             ng-click="onItemDelete(item)">
+          </ion-delete-button>
+          <ion-option-button class="button-assertive"
+                             ng-click="delete(item)">
+            Delete
+          </ion-option-button>
+          <ion-option-button class="button-calm"
+                             ng-click="share(item)">
+            Share
+          </ion-option-button>
+          <ion-reorder-button class="ion-navicon" on-reorder="moveItem(item, $fromIndex, $toIndex)"></ion-reorder-button>
+        </ion-item>
+
+      </ion-list> -->
+      <ion-list sortable draggable=".card" sorted="onReorder($fromIndex, $toIndex)">
+            <ion-item ng-repeat="contact in contacts" class="item-light item-avatar card item-complex">
+                <div class="item-content">
+                    <img ng-src="img/{{contact.img}}" />
+                    <div class="item-divider">{{contact.name}}</div>
+                    <div class="item-text-wrap">
+                        <ul>
+                            <li>Phone: {{contact.phone}}</li>
+                            <li>Mobile: {{contact.mobile}}</li>
+                            <li>Email: {{contact.email}}</li>
+                        </ul>
+                    </div>
+                </div>
+            </ion-item>
+      </ion-list>
+
+    </ion-content>
+
+  </body>

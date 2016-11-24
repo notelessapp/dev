@@ -59,7 +59,20 @@ angular.module('starter')
       $scope.occupation = result.data.occupation;
       $scope.password = result.data.password;
       //Making the Scope.user to an object ready to parse updates
-      $scope.user = {};
+      //$scope.user = {};
+      // dubplicate the current input field ng-model into input field value
+      $scope.user = {
+        name: result.data.name,
+        fullname: result.data.fullname,
+        email: result.data.email,
+        occupation: result.data.occupation
+      };
+      $scope.set = function(new_title) {
+        this.user.name = new_title;
+        this.user.fullname = new_title;
+        this.user.email = new_title;
+        this.user.occupation = new_title;
+      }
     });
   };
   //function to update user info

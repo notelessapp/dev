@@ -172,6 +172,7 @@ router.route('/users/:user_id')
       User.findById(req.params.user_id, function(err, user){
         if (err)
             return res.send(err);
+            //var user = User(req.body); this breaks it
             user.name = req.body.name;
             user.email = req.body.email;
             user.fullname = req.body.fullname;
