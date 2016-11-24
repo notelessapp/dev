@@ -52,7 +52,8 @@ angular.module('starter', ['ionic'])
     url: '/mynotes',
     views: {
       'menuContent': {
-        templateUrl: 'features/notes/mynotes.html'
+        templateUrl: 'features/notes/mynotes.html',
+        controller: 'MyCtrl'
       }
     }
   })

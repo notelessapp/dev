@@ -1,6 +1,6 @@
 angular.module('starter')
 //this is the controller for login
-.service('SwipeService', function() {
+.service('SwipeService', function($ionicPopup) {
 'use strict';
   //The class for our note cards
   class Cards {
@@ -95,17 +95,49 @@ angular.module('starter')
         return;
 
       this.targetX = 0;
-      let screenX = this.currentX - this.startX;
-      const threshold = this.targetBCR.width * 0.35;
+      var screenX = this.currentX - this.startX;
+      var threshold = this.targetBCR.width * 0.35;
       if (Math.abs(screenX) > threshold) {
-        let ConfirmDismiss = confirm("Are you sure you want to delete this note?");
+        $ionicPopup.confirm({
+            title: 'Delete this note?',
+            buttons: [{ text: 'Cancel' },
+            {
+            text: '<b>OK</b>',
+            type: 'button-positive',
+
+            /// how to get a vlue into array!!! 
+            onTap: function(width) {
+              this.targetX = (screenX > 0) ?
+                  this.targetBCR.width :
+                  -this.targetBCR.width;
+              }
+            }
+          ]
+        });
+        /*} else {
+          this.resetTarget();*/
+        /*let ConfirmDismiss = confirm("Are you sure you want to delete this note?");
         if(ConfirmDismiss){
           this.targetX = (screenX > 0) ?
               this.targetBCR.width :
+              -this.targetBCR.width;*/
+      /*  function deleteIt(){
+          this.targetX = (screenX > 0) ?
+              this.targetBCR.width :
               -this.targetBCR.width;
-        }else{
-          this.resetTarget();
-        }
+        };
+        function resetIt(){this.resetTarget()};
+        $ionicPopup.confirm(
+          {
+              title: 'Delete this note?',
+              buttons: [
+                { text: 'Delete', onTap: function(e){
+
+                } {  var deleteIt = true; return deleteIt;  } },
+                { text: 'Cancel', onTap: resetIt(){  var deleteIt = false; return deleteIt; } }
+              ]
+            });*/
+
       }
 
       this.draggingCard = false;
