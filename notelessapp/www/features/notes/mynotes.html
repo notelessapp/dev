@@ -17,7 +17,7 @@
 
       <!-- The list directive is great, but be sure to also checkout the collection repeat directive when scrolling through large lists -->
 
-      <ion-list show-delete="data.showDelete" sortable draggable=".card" sorted="onReorder($fromIndex, $toIndex)" show-reorder="data.showReorder">
+      <!-- <ion-list show-delete="data.showDelete" sortable draggable=".card" sorted="onReorder($fromIndex, $toIndex)" show-reorder="data.showReorder">
 
         <ion-item ng-repeat="item in items"
                   item="item"
@@ -38,8 +38,8 @@
           <ion-reorder-button class="ion-navicon" on-reorder="moveItem(item, $fromIndex, $toIndex)"></ion-reorder-button>
         </ion-item>
 
-      </ion-list>
-      <!-- <ion-list sortable draggable=".card" sorted="onReorder($fromIndex, $toIndex)">
+      </ion-list> -->
+      <ion-list sortable draggable=".card" sorted="onReorder($fromIndex, $toIndex)">
             <ion-item ng-repeat="contact in contacts" class="item-light item-avatar card item-complex">
                 <div class="item-content">
                     <img ng-src="img/{{contact.img}}" />
@@ -53,7 +53,7 @@
                     </div>
                 </div>
             </ion-item>
-      </ion-list> -->
+      </ion-list>
 
     </ion-content>
 
