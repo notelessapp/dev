@@ -1,23 +1,21 @@
-// BASIC SETUP
+// Basic Setup
 
-// CALL THE PACKAGES WE NEED
+// Call the packages we need
 var express     = require('express');
 var app         = express();
 var bodyParser  = require('body-parser');
 var morgan      = require('morgan');
 var mongoose    = require('mongoose');
 var passport  	= require('passport');
-var config      = require('./config/database'); // get db config file
-var User        = require('./app/models/users/user'); // get the mongoose model
-var port        = process.env.PORT || 8080; // SET PORT TO 8080
+var config      = require('./config/database'); // Get DB config file
+var User        = require('./app/models/users/user'); // Get the Mongoose model
+var port        = process.env.PORT || 8080; // Set port to 8080
 var jwt         = require('jwt-simple');
-var cors = require('cors');
-
-
+var cors        = require('cors');
 
 app.use(cors());
 
-// CONFIGURE APP USING BODYPARSER
+// Configure app using Bodyparser
 app.use(bodyParser.urlencoded({extended:true}));
 app.use(bodyParser.json());
 
@@ -38,7 +36,7 @@ next();
 // Use the passport package in our application
 app.use(passport.initialize());
 
-// SETUP ROUTES FOR API
+// Setup Routes for API
 var router = express.Router();
 
 router.use(function(req, res, next){
@@ -46,26 +44,24 @@ router.use(function(req, res, next){
   next();
 });
 
-
-
-// START SERVER
+// Start server
 app.listen(port);
 console.log('Server up and running on ' + port);
 
-// DATABASE CONNECTION
+// Database connection
 mongoose.Promise = global.Promise
 mongoose.connect(config.database);
 
-// pass passport for configuration
+// Pass passport for configuration
 require('./config/passport')(passport);
 // TEST
 app.get('/', function(req, res) {
   res.send('Hello! The API is at http://localhost:' + port + '/api');
 });
 
-//Userinfo
+//User info
 
-// route to a restricted info (GET http://localhost:8080/api/memberinfo)
+// Route to restricted info (GET http://localhost:8080/api/memberinfo)
 router.get('/memberinfo', passport.authenticate('jwt', { session: false}), function(req, res) {
   var token = getToken(req.headers);
   if (token) {
@@ -100,14 +96,14 @@ getToken = function (headers) {
 };
 
 
-// USER ROUTES
-// CREATE A USER
+// User routes
+// Create a user
 router.post('/signup', function(req, res) {
   if (!req.body.name || !req.body.password) {
     res.json({success: false, msg: 'Please pass name and password.'});
   } else {
     var newUser = new User(req.body);
-    // save the user
+    // Save the user
     newUser.save(function(err) {
       if (err) {
         return res.json({success: false, msg: 'Username already exists.'});
@@ -128,7 +124,7 @@ router.route('/users')
       var user = new User(req.body);
 
 
-// SAVE THE USER & CHECK FOR ERRORS
+// Save the user & check for errors
       user.save(function(err){
         if (err)
             res.send(err);
@@ -139,7 +135,7 @@ router.route('/users')
         }
       });
     })
-// GETTING USERS
+// Getting users
     .get(function(req, res){
       User.find(function(err, users){
         if (err)
@@ -153,9 +149,9 @@ router.route('/users')
       });
     });
 
-// SINGLE-USER ROUTE
+// Single-user route
 router.route('/users/:user_id')
-// GETTING A SINGLE USER
+// Getting a single user
     .get(function(req, res){
       User.findById(req.params.user_id, function(err, user){
         if (err)
@@ -169,7 +165,7 @@ router.route('/users/:user_id')
       });
     })
 
-// UPDATE A USER
+// Update a user
     .put(function(req, res){
       User.findById(req.params.user_id, function(err, user){
         if (err)
@@ -180,7 +176,7 @@ router.route('/users/:user_id')
             user.fullname = req.body.fullname;
             user.occupation = req.body.occupation;
         		user.email = req.body.email;
-// SAVING THE USER UPDATE
+// Saving the user update
         user.save(function(err){
           if (err)
             return res.send(err);
@@ -192,7 +188,7 @@ router.route('/users/:user_id')
         });
       });
     })
-// DELETE THE USER
+// Delete the user
     .delete(function(req, res){
       User.remove({
         _id: req.params.user_id
@@ -231,9 +227,9 @@ router.post('/authenticate', function(req, res) {
 
 
 
-// NOTES ROUTES
+// Notes routes
     router.route('/notes')
-// CREATE A NOTES
+// Create a Note
         .post(function(req, res){
           //the request is sent with a JWT to identify the user
           var token = getToken(req.headers);
@@ -246,7 +242,7 @@ router.post('/authenticate', function(req, res) {
           var note = new Note(req.body);
           note.owner = decoded._id;
 
-// SAVE THE NOTES & CHECK FOR ERRORS
+// Save the notes & check for errors
           note.save(function(err, note){
             if (err)
                 res.send(err);
@@ -258,14 +254,14 @@ router.post('/authenticate', function(req, res) {
 
           });
         })
-// GETTING NOTES
+// Getting notes
         .get(function(req, res){
-          //the request is sent with a JWT to identify the user
+          //The request is sent with a JWT to identify the user
           var token = getToken(req.headers);
-          //if there is a token then decrypt it
+          //If there is a token then decrypt it
           if (token) {
             var decoded = jwt.decode(token, config.secret);
-            //find the user id of the token received
+            //Find the user id of the token received
             console.log('Her er dit user id' + decoded._id)
           }
 
@@ -280,9 +276,9 @@ router.post('/authenticate', function(req, res) {
           });
         });
 
-// SINGLE-NOTES ROUTE
+// Single-notes route
     router.route('/notes/:note_id')
-// GETTING A SINGLE NOTES
+// Getting a single route
         .get(function(req, res){
           Note.findById(req.params.note_id, function(err, note){
             if (err)
@@ -295,7 +291,7 @@ router.post('/authenticate', function(req, res) {
           });
         })
 
-// UPDATE NOTES
+// Update notes
         .put(function(req, res){
           Note.findById(req.params.note_id, function(err, note){
             if (err)
@@ -304,7 +300,7 @@ router.post('/authenticate', function(req, res) {
             note.content = req.body.content;
             note.owner = req.body.owner;
 
-// SAVING THE NOTES UPDATE
+// Saving the notes update
             note.save(function(err){
               if (err)
                   res.send(err);
@@ -316,7 +312,7 @@ router.post('/authenticate', function(req, res) {
             });
           });
         })
-// DELETE THE NOTES
+// Delete the notes
         .delete(function(req, res){
           Note.remove({
             _id: req.params.note_id
@@ -330,10 +326,10 @@ router.post('/authenticate', function(req, res) {
         });
 
 
-        // REGISTERING ROUTES
+        // Registering routes
         app.use('/api', router);
 
 
-        // IMPLEMENTING SCHEMAS
+        // Implementing schemas
         var Note = require('./app/models/notes/note');
         var User = require('./app/models/users/user');

@@ -9,7 +9,7 @@ var UserSchema = new Schema({
         unique: true
     },
 		password: {
-			//should add a unique as true here aswell at a later point MS
+			//Should add a unique as true here at a later point MS
         type: String
     },
 		fullname: String,
@@ -29,7 +29,7 @@ var UserSchema = new Schema({
 }, {versionKey: false});
 
 
-//What to do before actually saving the user
+//Verifying password, salting and hashing before saving user
 UserSchema.pre('save', function (next) {
     var user = this;
     if (this.isModified('password') || this.isNew) {
