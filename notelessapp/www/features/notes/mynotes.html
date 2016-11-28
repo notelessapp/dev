@@ -2,10 +2,10 @@
 
     <ion-header-bar class="bar bar-subheader custom bar-energized">
       <div class="buttons">
-        <button class="button button-icon icon ion-ios-minus-outline"
-          ng-click="data.showDelete = !data.showDelete; data.showReorder = false"></button>
+        <button class="button button-icon icon ion-ios-plus-outline"
+          ng-click="createNote()"></button>
       </div>
-      <h1 class="title">Ionic Delete/Option Buttons</h1>
+      <h1 class="title">Notes</h1>
       <div class="buttons">
         <button class="button" ng-click="data.showDelete = false; data.showReorder = !data.showReorder">
             Reorder
@@ -19,11 +19,11 @@
 
       <ion-list show-delete="data.showDelete" sortable draggable=".card" sorted="onReorder($fromIndex, $toIndex)" show-reorder="data.showReorder">
 
-        <ion-item ng-repeat="item in items"
+        <ion-item ng-repeat="note in notes"
                   item="item"
-                  class="item-remove-animate" ng-click="edit(item)"
+                  class="item-remove-animate" ng-click="edit(note_id)"
                   on-release="release($event)">
-          Item {{ item.notes }} {{item.title}}
+          {{note.title}}
           <ion-delete-button class="ion-minus-circled"
                              ng-click="onItemDelete(item)">
           </ion-delete-button>

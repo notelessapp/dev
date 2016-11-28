@@ -105,7 +105,7 @@ angular.module('starter')
             text: '<b>OK</b>',
             type: 'button-positive',
 
-            /// how to get a vlue into array!!! 
+            /// how to get a vlue into array!!!
             onTap: function(width) {
               this.targetX = (screenX > 0) ?
                   this.targetBCR.width :
@@ -132,7 +132,6 @@ angular.module('starter')
               title: 'Delete this note?',
               buttons: [
                 { text: 'Delete', onTap: function(e){
-
                 } {  var deleteIt = true; return deleteIt;  } },
                 { text: 'Cancel', onTap: resetIt(){  var deleteIt = false; return deleteIt; } }
               ]
