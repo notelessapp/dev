@@ -23,7 +23,7 @@
                   item="item"
                   class="item-remove-animate" ng-click="edit(item)"
                   on-release="release($event)">
-          Item {{ item.id }}
+          Item {{ item.notes }} {{item.title}}
           <ion-delete-button class="ion-minus-circled"
                              ng-click="onItemDelete(item)">
           </ion-delete-button>

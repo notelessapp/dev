@@ -171,16 +171,11 @@ router.route('/users/:user_id')
         if (err)
             return res.send(err);
             //var user = User(req.body); this breaks it
-              if(req.body.name){
-              user.name = req.body.name;}
-              if(req.body.password){
-              user.password = req.body.password;}
-              if(req.body.fullname){
-              user.fullname = req.body.fullname;}
-              if(req.body.occupation){
-              user.occupation = req.body.occupation;}
-              if(req.body.email){
-          		user.email = req.body.email;}
+            user.name = req.body.name;
+            user.email = req.body.email;
+            user.fullname = req.body.fullname;
+            user.occupation = req.body.occupation;
+        		user.email = req.body.email;
 // Saving the user update
         user.save(function(err){
           if (err)
@@ -270,13 +265,16 @@ router.post('/authenticate', function(req, res) {
             console.log('Her er dit user id' + decoded._id)
           }
 
-          Note.find(function(err, note){
+
+
+
+          Note.find({owner: decoded._id}, function(err, note){
             if (err)
                 res.send(err);
             if (!err) {
-              Note.find({owner: decoded._id})
-              .exec(function(err, note) {console.log(JSON.stringify(note, null, "\t"))})
-              res.json({message:'Notes received!'});
+              // Note.find({owner: decoded._id})
+              // .exec(function(err, note) {console.log(JSON.stringify(note, null, "\t"))})
+              res.send(note);
             }
           });
         });
