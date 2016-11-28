@@ -13,6 +13,8 @@ var port        = process.env.PORT || 8080; // SET PORT TO 8080
 var jwt         = require('jwt-simple');
 var cors = require('cors');
 
+
+
 app.use(cors());
 
 // CONFIGURE APP USING BODYPARSER
@@ -233,30 +235,47 @@ router.post('/authenticate', function(req, res) {
     router.route('/notes')
 // CREATE A NOTES
         .post(function(req, res){
+          //the request is sent with a JWT to identify the user
+          var token = getToken(req.headers);
+          //if there is a token then decrypt it
+          if (token) {
+            var decoded = jwt.decode(token, config.secret);
+            //find the user id of the token received
+            console.log('Her er dit user id' + decoded._id)
+          }
           var note = new Note(req.body);
-
+          note.owner = decoded._id;
 
 // SAVE THE NOTES & CHECK FOR ERRORS
-          note.save(function(err){
+          note.save(function(err, note){
             if (err)
                 res.send(err);
             if (!err){
-              Note.find({}).
-              populate('owner').
-              exec(function(err, note) {console.log(JSON.stringify(note, null, "\t"))})
-                  res.json({message:'note created'});
-              }
+
+                  console.log(JSON.stringify(note, null, "\t"))
+                  res.json({message:'Note created!'});
+                }
+
           });
         })
 // GETTING NOTES
         .get(function(req, res){
+          //the request is sent with a JWT to identify the user
+          var token = getToken(req.headers);
+          //if there is a token then decrypt it
+          if (token) {
+            var decoded = jwt.decode(token, config.secret);
+            //find the user id of the token received
+            console.log('Her er dit user id' + decoded._id)
+          }
+
           Note.find(function(err, note){
             if (err)
                 res.send(err);
             if (!err) {
-              Note.find({})
+              Note.find({owner: decoded._id})
               .exec(function(err, note) {console.log(JSON.stringify(note, null, "\t"))})
-              res.json(note);
+              res.json({message:'Notes received!'});
             }
           });
         });
@@ -271,7 +290,7 @@ router.post('/authenticate', function(req, res) {
             if (!err){
               Note.findById(req.params.note_id)
               .exec(function(err, note) { console.log(JSON.stringify(note, null, "\t")) })
-              res.json(note);
+              res.json({message:'Here is the note you asked for!'});
             }
           });
         })
@@ -283,6 +302,7 @@ router.post('/authenticate', function(req, res) {
                 res.send(err);
             note.title = req.body.title;
             note.content = req.body.content;
+            note.owner = req.body.owner;
 
 // SAVING THE NOTES UPDATE
             note.save(function(err){
@@ -303,7 +323,9 @@ router.post('/authenticate', function(req, res) {
           }, function(err, note){
             if (err)
                 res.send(err);
+            if (!err){
             res.json({message: 'Note deleted!'});
+            }
           });
         });
 
@@ -312,7 +334,6 @@ router.post('/authenticate', function(req, res) {
         app.use('/api', router);
 
 
-
-// IMPLEMENTING SCHEMAS
-var Note = require('./app/models/notes/note');
-var User = require('./app/models/users/user');
+        // IMPLEMENTING SCHEMAS
+        var Note = require('./app/models/notes/note');
+        var User = require('./app/models/users/user');
