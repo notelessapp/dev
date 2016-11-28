@@ -1,16 +1,8 @@
 angular.module('starter')
 
-.controller('MyCtrl', function($scope, $ionicModal) {
+.controller('MyCtrl', function($scope, $ionicPopup) {
 
-  $scope.contacts = [
-      { name: 'Frank', img: 'frank.jpg', phone: '0101 123456', mobile: '0770 123456', email: 'frank@emailionicsorter.com' },
-      { name: 'Susan', img: 'susan.jpg', phone: '0101 123456', mobile: '0770 123456', email: 'frank@emailionicsorter.com' },
-      { name: 'Emma', img: 'emma.jpg', phone: '0101 123456', mobile: '0770 123456', email: 'frank@emailionicsorter.com' },
-      { name: 'Scott', img: 'scott.jpg', phone: '0101 123456', mobile: '0770 123456', email: 'frank@emailionicsorter.com' },
-      { name: 'Bob', img: 'bob.jpg', phone: '0101 123456', mobile: '0770 123456', email: 'frank@emailionicsorter.com' },
-      { name: 'Olivia', img: 'olivia.jpg', phone: '0101 123456', mobile: '0770 123456', email: 'frank@emailionicsorter.com' },
-      { name: 'Anne', img: 'anne.jpg', phone: '0101 123456', mobile: '0770 123456', email: 'frank@emailionicsorter.com' }
-  ];
+
 
   $scope.onReorder = function (fromIndex, toIndex) {
       var moved = $scope.contacts.splice(fromIndex, 1);
@@ -25,8 +17,16 @@ angular.module('starter')
   };
 
   $scope.edit = function(item) {
-    alert('Edit Item: ' + item.id);
+
+    var alertPopup = $ionicPopup.alert({
+      title: 'This is the title of the note!',
+      template: '<textarea rows="40" type="text" ng-model="notetext" id="thisIsTheText">'
+    });
+
   };
+
+
+
   $scope.share = function(item) {
     alert('Share Item: ' + item.id);
   };
@@ -56,7 +56,8 @@ angular.module('starter')
   };
 
   $scope.items = [
-    { id: 0 },
+    { id: 0,
+    text: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.' },
     { id: 1 },
     { id: 2 },
     { id: 3 },
