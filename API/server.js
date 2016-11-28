@@ -171,11 +171,16 @@ router.route('/users/:user_id')
         if (err)
             return res.send(err);
             //var user = User(req.body); this breaks it
-            user.name = req.body.name;
-            user.email = req.body.email;
-            user.fullname = req.body.fullname;
-            user.occupation = req.body.occupation;
-        		user.email = req.body.email;
+              if(req.body.name){
+              user.name = req.body.name;}
+              if(req.body.password){
+              user.password = req.body.password;}
+              if(req.body.fullname){
+              user.fullname = req.body.fullname;}
+              if(req.body.occupation){
+              user.occupation = req.body.occupation;}
+              if(req.body.email){
+          		user.email = req.body.email;}
 // Saving the user update
         user.save(function(err){
           if (err)

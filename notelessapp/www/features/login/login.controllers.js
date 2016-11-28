@@ -58,38 +58,17 @@ angular.module('starter')
       $scope.email = result.data.email;
       $scope.occupation = result.data.occupation;
       $scope.password = result.data.password;
-      //Making the Scope.user to an object ready to parse updates
-      //$scope.user = {};
-      // dubplicate the current input field ng-model into input field value
-      $scope.user = {
-        name: result.data.name,
-        fullname: result.data.fullname,
-        email: result.data.email,
-        occupation: result.data.occupation
-      };
-      $scope.set = function(new_title) {
-        this.user.name = new_title;
-        this.user.fullname = new_title;
-        this.user.email = new_title;
-        this.user.occupation = new_title;
-      }
+      $scope.user = {}; //Important to make the $scope.user to an object so it can be updated
     });
   };
   //function to update user info
   $scope.updateUser = function() {
-    $scope.user = {
-      name: $scope.user.name,
-      password: $scope.user.password,
-      fullname: $scope.user.fullname,
-      occupation: $scope.user.occupation,
-      email: $scope.user.email
-    };
     $http.put(API_ENDPOINT.url + '/users/' + $scope._id, $scope.user).success(function(resolve) {
       console.log($scope.user);
       $scope.ServerResponse = $scope.test;
       $scope.getInfo();
-    });
-       };
+      });
+     };
 
 
 
