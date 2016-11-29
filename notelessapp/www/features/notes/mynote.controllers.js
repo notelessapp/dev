@@ -1,6 +1,6 @@
 angular.module('starter')
 
-.controller('MyCtrl', function($scope, $ionicPopup, AuthService, API_ENDPOINT, $http, $state) {
+.controller('MyCtrl', function($scope, $ionicPopup, NoteService, API_ENDPOINT, $http, $state, $ionicListDelegate) {
 
 
 
@@ -10,7 +10,15 @@ angular.module('starter')
   };
 
 
+$scope.delete = function(note) {
 
+  $http.delete(API_ENDPOINT.url + '/notes/' + note._id).success(function(resolve) {
+    console.log('Successfully deleted', note._id);
+    $scope.notes.splice($scope.notes.indexOf(note), 1);
+    $ionicListDelegate.closeOptionButtons();
+
+    });
+}
 
   $scope.data = {
     showDelete: false
@@ -23,6 +31,44 @@ angular.module('starter')
       template: '<textarea rows="40" type="text" ng-model="notetext" id="thisIsTheText">'
     });
 
+  };
+
+
+$scope.popupNoteCreate = function() {
+  $scope.note = {};
+  var alertPopup = $ionicPopup.alert({
+    title:'Create a new note',
+    templateUrl: 'features/notes/createNoteTemplate.html',
+    scope: $scope,
+    buttons: [{ // Array[Object] (optional). Buttons to place in the popup footer.
+   text: 'Cancel',
+   type: 'button-default',
+   onTap: function(e) {
+    //  e.preventDefault(); <-- activate this if we need it be prevented
+   }
+ }, {
+   text: 'Save',
+   type: 'button-positive',
+   onTap: $scope.createNote
+   }]
+  });
+}
+
+
+  //Function for signing up new users.
+  $scope.createNote = function() {
+    NoteService.create($scope.note).then(function(msg) {
+      $state.go('app.mynotes');
+      var alertPopup = $ionicPopup.alert({
+        title: 'Note Created!',
+        template: msg
+      });
+    }, function(errMsg) {
+      console.log(errMsg);
+      $state.go('app.mynotes');
+
+
+    });
   };
 
 
@@ -60,6 +106,7 @@ angular.module('starter')
            console.log(result);
            $scope.notes = result.data;
            $scope.title = result.data.title;
+          //  $scope.note = {};
           });
 
 

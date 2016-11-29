@@ -231,7 +231,7 @@ router.post('/authenticate', function(req, res) {
     router.route('/notes')
 // Create a Note
         .post(function(req, res){
-          //the request is sent with a JWT to identify the user
+                    //the request is sent with a JWT to identify the user
           var token = getToken(req.headers);
           //if there is a token then decrypt it
           if (token) {

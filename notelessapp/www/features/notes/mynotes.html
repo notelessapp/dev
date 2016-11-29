@@ -3,14 +3,14 @@
     <ion-header-bar class="bar bar-subheader custom bar-energized">
       <div class="buttons">
         <button class="button button-icon icon ion-ios-plus-outline"
-          ng-click="createNote()"></button>
+          ng-click="popupNoteCreate()"></button>
       </div>
       <h1 class="title">Notes</h1>
-      <div class="buttons">
+      <!-- <div class="buttons">
         <button class="button" ng-click="data.showDelete = false; data.showReorder = !data.showReorder">
             Reorder
         </button>
-      </div>
+      </div> -->
     </ion-header-bar>
 
     <ion-content>
@@ -19,7 +19,7 @@
 
       <ion-list show-delete="data.showDelete" sortable draggable=".card" sorted="onReorder($fromIndex, $toIndex)" show-reorder="data.showReorder">
 
-        <ion-item ng-repeat="note in notes"
+        <ion-item ng-repeat="note in notes | orderBy:'-date'"
                   item="item"
                   class="item-remove-animate" ng-click="edit(note_id)"
                   on-release="release($event)">
@@ -28,7 +28,7 @@
                              ng-click="onItemDelete(item)">
           </ion-delete-button>
           <ion-option-button class="button-assertive"
-                             ng-click="delete(item)">
+                             ng-click="delete(note)">
             Delete
           </ion-option-button>
           <ion-option-button class="button-calm"

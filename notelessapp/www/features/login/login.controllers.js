@@ -61,6 +61,7 @@ angular.module('starter')
       $scope.user = {}; //Important to make the $scope.user to an object so it can be updated
     });
   };
+
   //function to update user info
   $scope.updateUser = function() {
     $http.put(API_ENDPOINT.url + '/users/' + $scope._id, $scope.user).success(function(resolve) {

@@ -58,7 +58,6 @@ angular.module('starter')
       });
     });
   };
-
   var logout = function() {
     destroyUserCredentials();
   };
