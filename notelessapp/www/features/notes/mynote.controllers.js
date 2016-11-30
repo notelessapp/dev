@@ -1,6 +1,6 @@
 angular.module('starter')
 
-.controller('MyCtrl', function($scope, $ionicPopup, NoteService, API_ENDPOINT, $http, $state, $ionicListDelegate) {
+.controller('MyCtrl', function($scope, $ionicPopup, NoteService, API_ENDPOINT, $http, $state, $ionicListDelegate, datfactory, $window) {
 
 
 
@@ -19,6 +19,11 @@ $scope.delete = function(note) {
 
     });
 }
+
+datfactory.getlist()
+      .then(function(arrItems){
+         $scope.items = arrItems;
+       });
 
   $scope.data = {
     showDelete: false
@@ -58,12 +63,15 @@ $scope.popupNoteCreate = function() {
 }
 
 $scope.createNote = function() {
+  datfactory.getlist();
   NoteService.create($scope.note).then(function(msg) {
     $state.go('app.mynotes');
-    var alertPopup = $ionicPopup.alert({
-      title: 'Note created successfully!',
-      template: msg
-    });
+    $window.location.reload(true);
+    //uncomment below when we have a better fix for this reload page thing!
+    // var alertPopup = $ionicPopup.alert({
+    //   title: 'Note created successfully!',
+    //   template: msg
+    // });
   }, function(errMsg) {
     $state.go('app.mynotes');
     var alertPopup = $ionicPopup.alert({
@@ -112,10 +120,11 @@ $scope.getList = function() {
   //getting the users notes from the API recievied in an object
   $http.get(API_ENDPOINT.url + '/notes')
       .then(function(result) {
-       $scope.notess = result.data;
+       $scope.notes = result.data;
        console.log("nothing", $scope.notess);
      });
 };
+
 
        //getting the users notes from the API recievied in an object
        $http.get(API_ENDPOINT.url + '/notes')

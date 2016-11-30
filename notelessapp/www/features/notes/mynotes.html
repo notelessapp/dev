@@ -22,7 +22,7 @@
         <ion-item ng-repeat="note in notes | orderBy:'-date'"
                   class="item-remove-animate" ng-click="edit(note_id)"
                   on-release="release($event)">
-          {{note.title}}
+          <span>{{note.title}}</span> <span class="right">{{note.date | date : shortDate : timezone}} </span>
           <ion-delete-button class="ion-minus-circled"
                              ng-click="onItemDelete(item)">
           </ion-delete-button>

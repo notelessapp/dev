@@ -6,6 +6,7 @@ API/node_modules/
 API/platforms/
 API/plugins/
 notelessapp/node_modules
+notelessapp/ionic.project
 
 # ignore files
 *.psd

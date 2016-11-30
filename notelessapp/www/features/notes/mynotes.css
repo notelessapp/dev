@@ -14,3 +14,6 @@
 .popup-body {
   overflow-y:hidden;
 }
+.right {
+  float: right !important;
+}

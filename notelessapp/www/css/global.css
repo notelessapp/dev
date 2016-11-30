@@ -10,3 +10,7 @@
 .popup-title {
   font-size:22px;
 }
+
+.larger {
+    font-size: 25px !important;
+}

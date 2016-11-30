@@ -22,3 +22,15 @@ angular.module('starter')
   };
 
 })
+
+.factory('datfactory', function ($http, $q, API_ENDPOINT){
+
+    this.getlist = function(){
+        return  $http.get(API_ENDPOINT.url + '/notes')
+            .then(function(response) {
+              console.log(response); //I get the correct items, all seems ok here
+              return response.data.itemsToReturn;
+            });
+    }
+    return this;
+});
