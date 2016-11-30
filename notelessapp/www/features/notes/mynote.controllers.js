@@ -1,6 +1,6 @@
 angular.module('starter')
 
-.controller('MyCtrl', function($scope, $ionicPopup, NoteService, API_ENDPOINT, $http, $state, $ionicListDelegate, datfactory, $window) {
+.controller('MyCtrl', function($scope, $ionicPopup, NoteService, API_ENDPOINT, $http, $state, $ionicListDelegate, $window) {
 
 
 
@@ -19,11 +19,6 @@ $scope.delete = function(note) {
 
     });
 }
-
-datfactory.getlist()
-      .then(function(arrItems){
-         $scope.items = arrItems;
-       });
 
   $scope.data = {
     showDelete: false
