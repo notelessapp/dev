@@ -249,7 +249,7 @@ router.post('/authenticate', function(req, res) {
             if (!err){
 
                   console.log(JSON.stringify(note, null, "\t"))
-                  res.json({message:'Note created!'});
+                  res.json({success: true, message:'Note created!'});
                 }
 
           });
