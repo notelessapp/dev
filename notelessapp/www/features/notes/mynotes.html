@@ -20,7 +20,6 @@
       <ion-list show-delete="data.showDelete" sortable draggable=".card" sorted="onReorder($fromIndex, $toIndex)" show-reorder="data.showReorder">
 
         <ion-item ng-repeat="note in notes | orderBy:'-date'"
-                  item="item"
                   class="item-remove-animate" ng-click="edit(note_id)"
                   on-release="release($event)">
           {{note.title}}

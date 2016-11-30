@@ -33,9 +33,12 @@ $scope.delete = function(note) {
 
   };
 
-
+$scope.note = {
+    title:'',
+    content:''
+  };
 $scope.popupNoteCreate = function() {
-  $scope.note = {};
+
   var alertPopup = $ionicPopup.alert({
     title:'Create a new note',
     templateUrl: 'features/notes/createNoteTemplate.html',
@@ -54,35 +57,35 @@ $scope.popupNoteCreate = function() {
   });
 }
 
-
-  //Function for signing up new users.
-  $scope.createNote = function() {
-    NoteService.create($scope.note).then(function(msg) {
-      $state.go('app.mynotes');
-      var alertPopup = $ionicPopup.alert({
-        title: 'Note Created!',
-        template: msg
-      });
-    }, function(errMsg) {
-      console.log(errMsg);
-      $state.go('app.mynotes');
-
-
+$scope.createNote = function() {
+  NoteService.create($scope.note).then(function(msg) {
+    $state.go('app.mynotes');
+    var alertPopup = $ionicPopup.alert({
+      title: 'Note created successfully!',
+      template: msg
     });
+  }, function(errMsg) {
+    $state.go('app.mynotes');
+    var alertPopup = $ionicPopup.alert({
+      title: 'failed at creating note!',
+      template: errMsg
+    });
+  });
+};
+
+  $scope.share = function(note) {
+    alert('Share note: ' + note._id);
+  };
+
+  $scope.moveItem = function(note, fromIndex, toIndex) {
+    $scope.notes.splice(fromIndex, 1);
+    $scope.notes.splice(toIndex, 0, note);
   };
 
 
-  $scope.share = function(item) {
-    alert('Share Item: ' + item.id);
-  };
-
-  $scope.moveItem = function(item, fromIndex, toIndex) {
-    $scope.items.splice(fromIndex, 1);
-    $scope.items.splice(toIndex, 0, item);
-  };
-
-  $scope.onItemDelete = function(item) {
-  $scope.items.splice($scope.items.indexOf(item), 1);
+  $scope.onItemDelete = function(note) {
+  $scope.notes.splice($scope.items.indexOf(note), 1);
+  $scope.data.showDelete = false;
     };
 
   // hold function 3 secs
@@ -101,14 +104,24 @@ $scope.popupNoteCreate = function() {
   };
 
 
-     $http.get(API_ENDPOINT.url + '/notes')
-         .then(function(result) {
-           console.log(result);
-           $scope.notes = result.data;
-           $scope.title = result.data.title;
-          //  $scope.note = {};
-          });
 
+
+
+
+$scope.getList = function() {
+  //getting the users notes from the API recievied in an object
+  $http.get(API_ENDPOINT.url + '/notes')
+      .then(function(result) {
+       $scope.notess = result.data;
+       console.log("nothing", $scope.notess);
+     });
+};
+
+       //getting the users notes from the API recievied in an object
+       $http.get(API_ENDPOINT.url + '/notes')
+           .then(function(result) {
+            $scope.notes = result.data;
+          });
 
 
 });
