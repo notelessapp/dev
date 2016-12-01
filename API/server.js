@@ -311,9 +311,18 @@ router.post('/authenticate', function(req, res) {
           Note.findById(req.params.note_id, function(err, note){
             if (err)
                 res.send(err);
-            note.title = req.body.title;
-            note.content = req.body.content;
-            note.owner = req.body.owner;
+                if(req.body.title){
+                note.title = req.body.title;
+                }
+                if(req.body.content){
+                note.content = req.body.content;
+                }
+                if(req.body.owner){
+                note.owner = req.body.owner;
+                }
+                if(req.body.date){
+                note.date = req.body.date;
+                }
 
 // Saving the notes update
             note.save(function(err){
@@ -322,7 +331,7 @@ router.post('/authenticate', function(req, res) {
               if (!err){
                   Note.findById(req.params.note_id)
                   .exec(function(err, note) { console.log(JSON.stringify(note, null, "\t")) })
-                  res.json({message: 'Note updated!'});
+                  res.json({success: true, message: 'Note updated!'});
               }
             });
           });

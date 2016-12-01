@@ -24,14 +24,49 @@ $scope.delete = function(note) {
     showDelete: false
   };
 
-  $scope.edit = function(item) {
+  $scope.edit = function(note) {
+    console.log(note);
+    $scope.note  = {
+    title: note.title,
+    content: note.content};
 
+    console.log($scope.title);
     var alertPopup = $ionicPopup.alert({
-      title: 'This is the title of the note!',
-      template: '<textarea rows="40" type="text" ng-model="notetext" id="thisIsTheText">'
+      scope: $scope,
+      templateUrl: 'features/notes/editNoteTemplate.html',
+      buttons: [{ // Array[Object] (optional). Buttons to place in the popup footer.
+     text: 'Cancel',
+     type: 'button-default',
+     onTap: function(e) {
+      //  e.preventDefault(); <-- activate this if we need it be prevented
+     }
+   }, {
+     text: 'Save',
+     type: 'button-positive',
+     onTap: $scope.updateNote
+     }]
     });
 
   };
+
+
+$scope.updateNote = function() {
+  NoteService.updateNote($scope.note).then(function(msg) {
+    $state.go('app.mynotes');
+    $window.location.reload(true);
+    //uncomment below when we have a better fix for this reload page thing!
+    // var alertPopup = $ionicPopup.alert({
+    //   title: 'Note created successfully!',
+    //   template: msg
+    // });
+  }, function(errMsg) {
+    $state.go('app.mynotes');
+    var alertPopup = $ionicPopup.alert({
+      title: 'failed at creating note!',
+      template: errMsg
+    });
+  });
+};
 
 $scope.note = {
     title:'',

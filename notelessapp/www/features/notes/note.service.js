@@ -17,8 +17,21 @@ angular.module('starter')
     });
   };
 
+  var updateNote = function(note) {
+    return $q(function(resolve, reject) {
+      $http.put(API_ENDPOINT.url + '/notes/:id', note).then(function(result) {
+        if (result.data.success) {
+          resolve(result.data.msg);
+        } else {
+          reject(result.data.msg);
+        }
+      });
+    });
+  };
+
   return {
-    create: create
+    create: create,
+    updateNote: updateNote
   };
 
 })
