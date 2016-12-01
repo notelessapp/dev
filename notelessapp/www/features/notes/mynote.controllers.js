@@ -29,6 +29,7 @@ $scope.delete = function(note) {
     $scope.note  = {
     title: note.title,
     content: note.content};
+    $scope.note.id = note._id;
 
     console.log($scope.title);
     var alertPopup = $ionicPopup.alert({
@@ -51,7 +52,7 @@ $scope.delete = function(note) {
 
 
 $scope.updateNote = function() {
-  NoteService.updateNote($scope.note).then(function(msg) {
+  NoteService.updateNote($scope.note.id, $scope.note).then(function(msg) {
     $state.go('app.mynotes');
     $window.location.reload(true);
     //uncomment below when we have a better fix for this reload page thing!
