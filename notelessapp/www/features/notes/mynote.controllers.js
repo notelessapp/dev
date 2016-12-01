@@ -58,7 +58,6 @@ $scope.popupNoteCreate = function() {
 }
 
 $scope.createNote = function() {
-  datfactory.getlist();
   NoteService.create($scope.note).then(function(msg) {
     $state.go('app.mynotes');
     $window.location.reload(true);
