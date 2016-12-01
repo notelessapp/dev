@@ -40,8 +40,6 @@
     <script src="features/login/login.services.js"></script>
     <script src="features/menu/menu.controllers.js"></script>
     <script src="features/notes/mynote.controllers.js"></script>
-    <script src="features/notes/sortable.js"></script>
-    <script src="features/notes/mynote.services.js"></script>
     <script src="features/notes/note.service.js"></script>
     <script src="features/constants.js"></script>
     <script type="text/javascript" src="angular-content-editable.js"></script>
@@ -49,7 +47,7 @@
   <body ng-app="starter" ng-controller="AppCtrl">
   <ion-nav-view></ion-nav-view>
     <div class="tabs tabs-icon-only">
-      <a class="tab-item">
+      <a class="tab-item" href="#/app/mynotes">
         <i class="ion-compose larger"></i>
       </a>
       <a class="tab-item">
@@ -58,7 +56,7 @@
       <a class="tab-item">
         <i class="ion-ios-cart larger"></i>
       </a>
-      <a class="tab-item">
+      <a class="tab-item" href="#/app/profile">
         <i class="icon ion-gear-a larger"></i>
       </a>
     </div>

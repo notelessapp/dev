@@ -1,16 +1,15 @@
-<div class="card-container" ng-controller="MyCtrl">
+<ion-view view-title="Notes">
 
+  <div class="card-container" ng-controller="NoteController" ng-init="getList()">
     <ion-header-bar class="bar bar-subheader custom bar-energized">
       <div class="buttons">
-        <button class="button button-icon icon ion-ios-plus-outline"
-          ng-click="popupNoteCreate()"></button>
+        <button class="button button-icon icon ion-ios-plus-outline" ng-click="popupNoteCreate()"></button>
       </div>
-      <h1 class="title">Notes</h1>
-      <!-- <div class="buttons">
+      <!--
         <button class="button" ng-click="data.showDelete = false; data.showReorder = !data.showReorder">
             Reorder
-        </button>
-      </div> -->
+        </button> -->
+
     </ion-header-bar>
 
     <ion-content>
@@ -19,40 +18,17 @@
 
       <ion-list show-delete="data.showDelete" sortable draggable=".card" sorted="onReorder($fromIndex, $toIndex)" show-reorder="data.showReorder">
 
-        <ion-item ng-repeat="note in notes | orderBy:'-date'"
-                  class="item-remove-animate" ng-click="edit(note)"
-                  on-release="release($event)">
-          <span>{{note.title}}</span> <span class="right">{{note.date | date : shortDate : timezone}} </span>
-          <ion-delete-button class="ion-minus-circled"
-                             ng-click="onItemDelete(item)">
+        <ion-item ng-repeat="note in notes | orderBy:'-date'" class="item-remove-animate" ng-click="edit(note)" on-release="release($event)">
+          <span>{{note.title}}</span> <br><span class="right">{{note.date | date : shortDate : timezone}} </span>
+          <ion-delete-button class="ion-minus-circled" ng-click="onItemDelete(item)">
           </ion-delete-button>
-          <ion-option-button class="button-assertive"
-                             ng-click="delete(note)">
+          <ion-option-button class="button-assertive" ng-click="delete(note)">
             Delete
           </ion-option-button>
-          <ion-option-button class="button-calm"
-                             ng-click="share(item)">
+          <ion-option-button class="button-calm" ng-click="share(item)">
             Share
           </ion-option-button>
           <ion-reorder-button class="ion-navicon" on-reorder="moveItem(item, $fromIndex, $toIndex)"></ion-reorder-button>
         </ion-item>
-
-      <!-- </ion-list>
-      <ion-list sortable draggable=".card" sorted="onReorder($fromIndex, $toIndex)">
-            <ion-item ng-repeat="contact in contacts" class="item-light item-avatar card item-complex">
-                <div class="item-content">
-                    <img ng-src="img/{{contact.img}}" />
-                    <div class="item-divider">{{contact.name}}</div>
-                    <div class="item-text-wrap">
-                        <ul>
-                            <li>Phone: {{contact.phone}}</li>
-                            <li>Mobile: {{contact.mobile}}</li>
-                            <li>Email: {{contact.email}}</li>
-                        </ul>
-                    </div>
-                </div>
-            </ion-item>
-      </ion-list> -->
-
     </ion-content>
-</div>
+  </div>
