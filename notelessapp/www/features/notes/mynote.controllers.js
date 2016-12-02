@@ -51,9 +51,7 @@ angular.module('starter')
   //This function is adding $scope.note.id and $scope.note object into the NoteService.UpdateNote
   $scope.updateNote = function() {
     NoteService.updateNote($scope.note.id, $scope.note).then(function(msg) {
-      //When note is updated the user will be redirected to a refreshed note-view
-      $state.go('app.mynotes');
-      $window.location.reload(true);
+      $scope.getList();
     }, function(errMsg) {
       $state.go('app.mynotes');
       //If any errors appear during the note update the user will be notified
@@ -97,9 +95,11 @@ angular.module('starter')
   //This function is adding $scope.note object into the NoteService.CreateNote
   $scope.createNote = function() {
     NoteService.create($scope.note).then(function(msg) {
-      $state.go('app.mynotes');
-      $window.location.reload(true);
-
+      $scope.getList();
+      $scope.note = {
+        title: '',
+        content: ''
+      };
     }, function(errMsg) {
       $state.go('app.mynotes');
       var alertPopup = $ionicPopup.alert({
