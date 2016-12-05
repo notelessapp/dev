@@ -2,6 +2,7 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 var bcrypt = require('bcrypt');
+var ObjectId = Schema.Types.ObjectId;
 
 var UserSchema = new Schema({
 		name: {
@@ -17,6 +18,12 @@ var UserSchema = new Schema({
 		email: String,
 		paid: Number,
 		avatar: {type: String, default: "https://www.gravatar.com/avatar/00000000000000000000000000000000?d=mm&f=y"},
+        friendslist: [{
+            name: String,
+            friendId: String,
+            status: String,
+            date: {type:Date, default: Date.now}
+        }],
         required: ["name", "password"]
 
 }, {versionKey: false});

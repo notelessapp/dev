@@ -211,6 +211,8 @@ router.route('/users/:user_id')
       });
     });
 
+//Friends route
+router.route('/friends')
 
 //Authentication route
 router.post('/authenticate', function(req, res) {
