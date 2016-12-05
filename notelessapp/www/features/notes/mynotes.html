@@ -1,6 +1,6 @@
 <ion-view view-title="Notes">
 
-  <div class="card-container" ng-controller="NoteController" ng-init="getList()">
+  <div class="card-container" ng-init="getList()">
     <ion-header-bar class="bar bar-subheader custom bar-energized">
       <div class="buttons">
         <button class="button button-icon icon ion-ios-plus-outline" ng-click="popupNoteCreate()"></button>
@@ -19,7 +19,8 @@
       <ion-list show-delete="data.showDelete" sortable draggable=".card" sorted="onReorder($fromIndex, $toIndex)" show-reorder="data.showReorder">
 
         <ion-item ng-repeat="note in notes | orderBy:'-date'" class="item-remove-animate" ng-click="edit(note)" on-release="release($event)">
-          <span>{{note.title}}</span> <br><span class="right">{{note.date | date : shortDate : timezone}} </span>
+          <span>{{note.title}}</span><br>
+          <span class="right">{{note.date | date : shortDate : timezone}} </span>
           <ion-delete-button class="ion-minus-circled" ng-click="onItemDelete(item)">
           </ion-delete-button>
           <ion-option-button class="button-assertive" ng-click="delete(note)">

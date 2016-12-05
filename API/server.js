@@ -136,7 +136,7 @@ router.route('/users')
       });
     })
 // Getting users
-    .get(function(req, res){
+    .get(passport.authenticate('jwt', { session: false}), function(req, res){
       User.find(function(err, users){
         if (err)
             res.send(err);
@@ -152,7 +152,7 @@ router.route('/users')
 // Single-user route
 router.route('/users/:user_id')
 // Getting a single user
-    .get(function(req, res){
+    .get(passport.authenticate('jwt', { session: false}),function(req, res){
       User.findById(req.params.user_id, function(err, user){
         if (err)
           return res.send(err);
@@ -166,7 +166,7 @@ router.route('/users/:user_id')
     })
 
 // Update a user
-    .put(function(req, res){
+    .put(passport.authenticate('jwt', { session: false}), function(req, res){
       User.findById(req.params.user_id, function(err, user){
         if (err)
             return res.send(err);

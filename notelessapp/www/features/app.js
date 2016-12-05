@@ -60,7 +60,8 @@ angular.module('starter', ['ionic'])
     url: '/friends',
     views: {
       'menuContent': {
-        templateUrl: 'features/friends/friends.html'
+        templateUrl: 'features/friends/friends.html',
+        controller: 'friendsController'
       }
     }
   })
