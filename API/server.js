@@ -255,6 +255,7 @@ router.post('/authenticate', function(req, res) {
           }
           var note = new Note(req.body);
           note.owner = decoded._id;
+          note.ownerFullname = decoded.fullname;
 
 // Save the notes & check for errors
           note.save(function(err, note){

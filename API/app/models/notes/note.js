@@ -9,6 +9,7 @@ var NoteSchema = new Schema({
     content: String,
     date: { type: Date, default: Date.now },
     owner: ObjectId,
+    ownerFullname: String,
     shared: [{type: String}]
 
 }, {versionKey: false});
