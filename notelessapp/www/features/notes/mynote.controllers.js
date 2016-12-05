@@ -36,7 +36,10 @@ angular.module('starter')
         text: 'Cancel',
         type: 'button-assertive',
         onTap: function(e) {
-          //  e.preventDefault(); <-- activate this if we need it be prevented
+          $scope.note = {
+            title: '',
+            content: ''
+          };
         }
       }, {
         text: 'Save',
@@ -95,11 +98,7 @@ angular.module('starter')
   //This function is adding $scope.note object into the NoteService.CreateNote
   $scope.createNote = function() {
     NoteService.create($scope.note).then(function(msg) {
-
-      $scope.note = {
-        title: '',
-        content: ''
-      };
+      $scope.getList();
     }, function(errMsg) {
       $state.go('app.mynotes');
       var alertPopup = $ionicPopup.alert({
@@ -132,7 +131,14 @@ angular.module('starter')
     $http.get(API_ENDPOINT.url + '/notes')
       .then(function(result) {
         $scope.notes = result.data;
+        console.log($scope.notes);
+        $scope.note = {
+          title: '',
+          content: ''
+        };
       });
+
   };
+
 
 });
