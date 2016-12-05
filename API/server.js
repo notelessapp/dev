@@ -286,9 +286,14 @@ router.post('/authenticate', function(req, res) {
             if (err)
                 res.send(err);
             if (!err) {
-              // Note.find({owner: decoded._id})
-              // .exec(function(err, note) {console.log(JSON.stringify(note, null, "\t"))})
-              res.send(note);
+              Note.find({shared: decoded._id}, function(err, note2){
+                if(err)
+                  res.send(err);
+                if(!err){
+                  var stackedNotes = Object.assign(note, note2);
+                  res.send(stackedNotes);
+                }
+              });
             }
           });
         });
