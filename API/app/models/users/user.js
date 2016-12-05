@@ -17,14 +17,7 @@ var UserSchema = new Schema({
 		email: String,
 		paid: Number,
 		avatar: {type: String, default: "https://www.gravatar.com/avatar/00000000000000000000000000000000?d=mm&f=y"},
-		notes: [{
-			title: String,
-			locked: Boolean,
-			date: {type: Date, default: Date.now},
-			presets: [{
-				template: Number,
-			}]}],
-            required: ["name", "password"]
+        required: ["name", "password"]
 
 }, {versionKey: false});
 

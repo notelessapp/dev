@@ -253,6 +253,7 @@ router.post('/authenticate', function(req, res) {
           }
           var note = new Note(req.body);
           note.owner = decoded._id;
+          note.shared = req.body.shared;
 
 // Save the notes & check for errors
           note.save(function(err, note){
@@ -284,9 +285,12 @@ router.post('/authenticate', function(req, res) {
             if (err)
                 res.send(err);
             if (!err) {
-              // Note.find({owner: decoded._id})
-              // .exec(function(err, note) {console.log(JSON.stringify(note, null, "\t"))})
-              res.send(note);
+              Note.find({shared: decoded._id}, function(err, note2){
+                var stackedNotes = [note, note2];
+                res.send(stackedNotes);
+              });
+
+
             }
           });
         });
