@@ -95,7 +95,7 @@ angular.module('starter')
   //This function is adding $scope.note object into the NoteService.CreateNote
   $scope.createNote = function() {
     NoteService.create($scope.note).then(function(msg) {
-      $scope.getList();
+
       $scope.note = {
         title: '',
         content: ''

@@ -136,7 +136,7 @@ router.route('/users')
       });
     })
 // Getting users
-    .get(passport.authenticate('jwt', { session: false}), function(req, res){
+    .get(function(req, res){
       User.find(function(err, users){
         if (err)
             res.send(err);
@@ -152,7 +152,7 @@ router.route('/users')
 // Single-user route
 router.route('/users/:user_id')
 // Getting a single user
-    .get(passport.authenticate('jwt', { session: false}),function(req, res){
+    .get(function(req, res){
       User.findById(req.params.user_id, function(err, user){
         if (err)
           return res.send(err);
@@ -166,7 +166,7 @@ router.route('/users/:user_id')
     })
 
 // Update a user
-    .put(passport.authenticate('jwt', { session: false}), function(req, res){
+    .put(function(req, res){
       User.findById(req.params.user_id, function(err, user){
         if (err)
             return res.send(err);
@@ -253,7 +253,6 @@ router.post('/authenticate', function(req, res) {
           }
           var note = new Note(req.body);
           note.owner = decoded._id;
-          note.shared = req.body.shared;
 
 // Save the notes & check for errors
           note.save(function(err, note){
@@ -285,12 +284,9 @@ router.post('/authenticate', function(req, res) {
             if (err)
                 res.send(err);
             if (!err) {
-              Note.find({shared: decoded._id}, function(err, note2){
-                var stackedNotes = [note, note2];
-                res.send(stackedNotes);
-              });
-
-
+              // Note.find({owner: decoded._id})
+              // .exec(function(err, note) {console.log(JSON.stringify(note, null, "\t"))})
+              res.send(note);
             }
           });
         });
