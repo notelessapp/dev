@@ -8,7 +8,7 @@ var UserSchema = new Schema({
 		name: {
         type: String,
         unique: true
-    },
+				},
 		password: {
 			//Should add a unique as true here at a later point MS
         type: String
