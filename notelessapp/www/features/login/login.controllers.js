@@ -71,9 +71,6 @@ angular.module('starter')
       });
      };
 
-
-
-
     //.then(function(result) { //result
     //  name = req.body.name;
       //return result;
