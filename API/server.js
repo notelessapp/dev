@@ -273,6 +273,14 @@ router.route('/friends')
                     if(err)
                         res.send(err)
                     if(!err){
+                        //sets a variable to push the changes to the friendslist array
+                        var update1 = { $push: {'friendslist': { 'friendId': accepter, 'friendName': req.body.name, 'status': 'requested' }}};
+                        //find the requesters and updates the friendslist array
+
+                        console.log('sdfg', requester);
+                        User.findOneAndUpdate({'_id': requester}, update1, function(err) {
+                                console.log('err2', err);
+                        });
 
                         //sets a variable to push the changes to the friendslist array
                         var update2 = { $push: {'friendslist': { 'friendId': requester, 'friendName': decoded.name, 'status': 'pending'}}};
@@ -281,13 +289,6 @@ router.route('/friends')
                             res.json({
                                 message: 'Friendship request sent!'
                             });
-                        });
-
-                        //sets a variable to push the changes to the friendslist array
-                        var update1 = { $push: {'friendslist': { 'friendId': accepter, 'friendName': req.body.name, 'status': 'requested' }}};
-                        //find the requesters and updates the friendslist array
-                        User.findOneAndUpdate({'_id': requester}, update1, function(err) {
-
                         });
 
                     }
