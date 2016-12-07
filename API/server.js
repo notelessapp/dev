@@ -316,21 +316,47 @@ router.route('/friends')
         });
     })
 
+
+
     router.route('/friends/accept')
-        //Send frindrequest and update the user friendlist
+          //Send frindrequest and update the user friendlist
         .put(function(req, res) {
             //instantiate the token
             var token = getToken(req.headers);
             //if there is a token then decrypt it
             if (token) {
                 var decoded = jwt.decode(token, config.secret);
+                // console.log(req.body._id);
             }
             //Find the id of the requested friend name
-            User.find({'friendslist': {'_id': req.body._id}}, function(err, friend) {
+            User.findOne({_id: decoded._id}, function(err, user) {
+              console.log(user);
                 if(err)
-                    res.send(err);
+                    throw err;
                 if(!err){
-                    console.log(friend);
+                    requester = decoded._id;
+                    accepter = decoded.friendslist[0].friendId;
+                    friendname = decoded.friendslist[0].friendName;
+                    console.log("Requester: ", requester);
+                    console.log("Accepteren: ", accepter);
+
+                            //sets a variable to push the changes to the friendslist array
+                            var update1 = { $set: {'friendslist': { 'friendId': accepter, 'friendName': friendname, 'status': 'Accepted' }}};
+                            //find the requesters and updates the friendslist array
+                            User.findOneAndUpdate({'_id': requester}, update1, function(err) {
+
+                            });
+
+                            //sets a variable to push the changes to the friendslist array
+                            var update2 = { $set: {'friendslist': { 'friendId': requester, 'friendName': decoded.name, 'status': 'Accepted'}}};
+                            //find the accepters user and updates the friendslist array
+                            User.findOneAndUpdate({'_id': accepter}, update2,  function(err) {
+                                res.json({
+                                    user,
+                                    message: 'Friendship status has changed'
+                                });
+                            });
+
                 }
 
 
