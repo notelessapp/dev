@@ -2,10 +2,12 @@
   <ion-content>
     <div class="card-container">
       <ion-list>
-        
+
         <ion-item ng-repeat="friend in friends">
           <span>{{friend.friendName}}</span><br>
-          <span class="right">Status: {{friend.status}}</span>
+          <span class="right">Status: {{friend.status}}</span><br>
+          <button class="button button-assertive ion-close right" ng-click="cancelFriend()"></button>
+          <button class="button button-balanced ion-checkmark right" ng-click="acceptFriend(friend._id)"></button>
 
         </ion-item>
       </ion-list>
