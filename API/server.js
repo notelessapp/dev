@@ -141,7 +141,7 @@ router.post('/signup', function(req, res) {
 
 
 router.route('/users')
-
+// Create a new User
 .post(function(req, res) {
         var user = new User(req.body);
 
