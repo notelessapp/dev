@@ -1,7 +1,14 @@
-<ion-view view-title="Friends">
+<ion-view view-title="Friends" ng-init="getFriends()">
   <ion-content>
-    <div class="card-container" ng-repeat="friend in friends">
-      <h1>Du ved godt du ikke har nogen venner</h1>
+    <div class="card-container">
+      <ion-list>
+        
+        <ion-item ng-repeat="friend in friends">
+          <span>{{friend.friendName}}</span><br>
+          <span class="right">Status: {{friend.status}}</span>
+
+        </ion-item>
+      </ion-list>
     </div>
   </ion-content>
 </ion-view>
