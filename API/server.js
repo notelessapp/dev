@@ -241,14 +241,83 @@ router.route('/users/:user_id')
         }, function(err, user) {
             if (err)
                 res.send(err);
-            res.json({
+            if(!err){
+                res.json({
                 message: 'User deleted!'
-            });
+                });
+            }
         });
     });
 
 //Friends route
 router.route('/friends')
+    //Send frindrequest and update the user friendlist
+    .put(function(req, res) {
+        //instantiate the token
+        var token = getToken(req.headers);
+        //if there is a token then decrypt it
+        if (token) {
+            var decoded = jwt.decode(token, config.secret);
+        }
+        //Find the id of the requested friend name
+        User.findOne({name: req.body.name}, function(err, user) {
+            if(err)
+                res.send(err)
+            if(!err){
+                //set the requester to be equal to the id from the token
+                var requester = decoded._id;
+                //set the accepter to be equal to the id mathing the name
+                var accepter = user._id;
+
+                user.save(function(err){
+                    if(err)
+                        res.send(err)
+                    if(!err){
+
+                        //sets a variable to push the changes to the friendslist array
+                        var update2 = { $push: {'friendslist': { 'friendId': requester, 'friendName': decoded.name, 'status': 'pending'}}};
+                        //find the accepters user and updates the friendslist array
+                        User.findOneAndUpdate({'_id': accepter}, update2,  function(err) {
+                            res.json({
+                                message: 'Friendship request sent!'
+                            });
+                        });
+
+                        //sets a variable to push the changes to the friendslist array
+                        var update1 = { $push: {'friendslist': { 'friendId': accepter, 'friendName': req.body.name, 'status': 'requested' }}};
+                        //find the requesters and updates the friendslist array
+                        User.findOneAndUpdate({'_id': requester}, update1, function(err) {
+
+                        });
+
+                    }
+                });
+
+
+                /*user.save(function(err){
+                    if(err)
+                        res.send(err);
+                    if(!err){
+                        //sets a variable to push the changes to the friendslist array
+                        var update2 = { $push: {'friendslist': { 'friendId': requester, 'friendName': decoded.name, 'status': 'pending'}}};
+                        //find the accepters user and updates the friendslist array
+                        User.findOneAndUpdate({'_id': accepter}, update2,  function(err) {
+                            res.json({
+                                message: 'Friendship request sent!'
+                            });
+                        });
+
+                    }
+                });*/
+
+
+            }
+
+
+        });
+    })
+
+
 
 //Authentication route
 router.post('/authenticate', function(req, res) {

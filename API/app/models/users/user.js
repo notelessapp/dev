@@ -19,10 +19,10 @@ var UserSchema = new Schema({
 		paid: Number,
 		avatar: {type: String, default: "https://www.gravatar.com/avatar/00000000000000000000000000000000?d=mm&f=y"},
         friendslist: [{
-            name: String,
-            friendId: String,
-            status: String,
-            date: {type:Date, default: Date.now}
+                friendName: { type: String, unique: true },
+                friendId: { type: String, unique: true },
+                status: String,
+                date: {type:Date, default: Date.now}
         }],
         required: ["name", "password"]
 
