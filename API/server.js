@@ -127,9 +127,7 @@ router.post('/signup', function(req, res) {
             }
             if (!err) {
                 User.find()
-                    .exec(function(err, user) {
-                        console.log(JSON.stringify(user, null, "\t"))
-                    })
+
                 res.json({
                     success: true,
                     msg: 'Successful created new user.'
@@ -152,9 +150,7 @@ router.route('/users')
                 res.send(err);
             if (!err) {
                 User.find({})
-                    .exec(function(err, user) {
-                        console.log(JSON.stringify(user, null, "\t"))
-                    })
+
                 res.json({
                     message: 'User created'
                 });
@@ -168,9 +164,7 @@ router.route('/users')
                 res.send(err);
             if (!err) {
                 User.find({})
-                    .exec(function(err, user) {
-                        console.log(JSON.stringify(user, null, "\t"))
-                    })
+
                 res.json(users);
             }
 
@@ -186,9 +180,7 @@ router.route('/users/:user_id')
                 return res.send(err);
             if (!err) {
                 User.findById(req.params.user_id)
-                    .exec(function(err, user) {
-                        console.log(JSON.stringify(user, null, "\t"))
-                    })
+
                 return res.json(user);
             }
 
@@ -224,9 +216,7 @@ router.route('/users/:user_id')
                     return res.send(err);
                 if (!err) {
                     User.findById(req.params.user_id)
-                        .exec(function(err, user) {
-                            console.log(JSON.stringify(user, null, "\t"))
-                        })
+
                     res.json({
                         message: 'User updated!'
                     });
