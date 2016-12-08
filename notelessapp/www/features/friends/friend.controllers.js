@@ -10,9 +10,23 @@ angular.module('starter')
         console.log($scope.friends);
     });
   };
-   $scope.acceptFriend = function(friendShipId){
-     console.log(friendShipId);
-     
-     FriendService.accept($)
+   $scope.acceptFriend = function(friend){
+    //  console.log("hej", friend);
+     $scope.friendslist = friend._id
+     console.log("her", $scope.friendslist);
    }
+
+  //  $scope.updateNote = function() {
+  //    $scope.friend.id = friend._id;
+  //    NoteService.updateNote($scope.friend.id).then(function(msg) {
+  //      $scope.getFriends();
+  //    }, function(errMsg) {
+  //      $state.go('app.friends');
+  //      //If any errors appear during the note update the user will be notified
+  //      var alertPopup = $ionicPopup.alert({
+  //        title: 'An error occured',
+  //        template: errMsg
+  //      });
+  //    });
+  //  };
 });

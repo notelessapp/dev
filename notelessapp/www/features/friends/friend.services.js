@@ -5,10 +5,10 @@ angular.module('starter')
   var isAuthenticated = false;
   var authToken;
 
-  var accept = function(friendshipId) {
+  var accept = function(friendShipId) {
     return $q(function(resolve, reject) {
 
-      $http.put(API_ENDPOINT.url + '/friends/accept' + friendshipId).then(function(result) {
+      $http.put(API_ENDPOINT.url + '/friends/accept', friendShipId).then(function(result) {
         if (result.data.success) {
           resolve(result.data.msg);
         } else {
