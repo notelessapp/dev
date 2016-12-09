@@ -297,7 +297,7 @@ router.route('/friends/search/:name')
         .get(function(req, res) {
                 //var query = {};
                 //query.search = new RegExp(req.params.name, 'i');
-                User.find({name: req.params.name}, function(err, user) {
+                User.find({'name': req.params.name}, function(err, user) {
                     if(err)
                         res.send(err);
                     if(!err)
@@ -544,7 +544,7 @@ router.route('/notes/:note_id')
           }
       })
     });
-    
+
 // Registering routes
 app.use('/api', router);
 
