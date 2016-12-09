@@ -305,50 +305,55 @@ router.route('/friends/search/:name')
                 });
         });
 
-router.route('/friends/accept')
-          //Send frindrequest and update the user friendlist
-        .put(function(req, res) {
-            //instantiate the token
-            var token = getToken(req.headers);
-            //if there is a token then decrypt it
-            if (token) {
-                var decoded = jwt.decode(token, config.secret);
-                // console.log(req.body._id);
-            }
-            //Find the id of the requested friend name
-            User.findOne({_id: decoded._id}, function(err, user) {
-              console.log(user);
-                if(err)
-                    throw err;
-                if(!err){
-                    requester = decoded._id;
-                    accepter = decoded.friendslist[0].friendId;
-                    friendname = decoded.friendslist[0].friendName;
-                    console.log("Requester: ", requester);
-                    console.log("Accepteren: ", accepter);
-
-                            //sets a variable to push the changes to the friendslist array
-                            var update1 = { $set: {'friendslist': { 'friendId': accepter, 'friendName': friendname, 'status': 'Accepted' }}};
-                            //find the requesters and updates the friendslist array
-                            User.findOneAndUpdate({'_id': requester}, update1, function(err) {
-
-                            });
-
-                            //sets a variable to push the changes to the friendslist array
-                            var update2 = { $set: {'friendslist': { 'friendId': requester, 'friendName': decoded.name, 'status': 'Accepted'}}};
-                            //find the accepters user and updates the friendslist array
-                            User.findOneAndUpdate({'_id': accepter}, update2,  function(err) {
-                                res.json({
-                                    user,
-                                    message: 'Friendship status has changed'
-                                });
-                            });
-
-                }
+        router.route('/friends/status/:_id')
+                  //Send frindrequest and update the user friendlist
+                .put(function(req, res) {
+                    //instantiate the token
+                    var token = getToken(req.headers);
+                    //if there is a token then decrypt it
+                    if (token) {
+                        var decoded = jwt.decode(token, config.secret);
+                        // console.log(req.body._id);
+                    }
+                    //Find the id of the requested friend name
 
 
-            });
-        })
+
+                    User.find({_id: req.params._id}, function(err, user) {
+                      // owner: decoded._id
+                        if(err)
+                            throw err;
+                        if(!err){
+                            requester = decoded._id;
+                            accepter = decoded.friendslist[0].friendId;
+                            friendname = decoded.friendslist[0].friendName;
+                            console.log("Requester: ", requester);
+                            console.log("Accepteren: ", accepter);
+
+                                    //sets a variable to push the changes to the friendslist array
+                                    var update1 = { $set: {'friendslist': { 'friendId': accepter, 'friendName': friendname, 'status': 'Accepted' }}};
+                                    //find the requesters and updates the friendslist array
+                                    User.findOneAndUpdate({'_id': requester}, update1, function(err) {
+
+                                    });
+
+                                    //sets a variable to push the changes to the friendslist array
+                                    var update2 = { $set: {'friendslist': { 'friendId': requester, 'friendName': decoded.name, 'status': 'Accepted'}}};
+                                    //find the accepters user and updates the friendslist array
+                                    User.findOneAndUpdate({'_id': accepter}, update2,  function(err) {
+
+                                    });
+                                    res.json({
+                                        success: true,
+                                        message: 'Friendship status has changed'
+                                    });
+
+                        }
+
+
+                    });
+
+                })
 
 //Authentication route
 router.post('/authenticate', function(req, res) {
@@ -469,7 +474,6 @@ router.route('/notes/:note_id')
             }
         });
     })
-
 // Update notes
 .put(function(req, res) {
         Note.findById(req.params.note_id, function(err, note) {
@@ -487,7 +491,6 @@ router.route('/notes/:note_id')
             if (req.body.date) {
                 note.date = req.body.date;
             }
-
             // Saving the notes update
             note.save(function(err) {
                 if (err)
@@ -519,7 +522,6 @@ router.route('/notes/:note_id')
                 }
                 var owner = note.owner;
                 var requester = decoded._id;
-
                 if (owner == requester) {
                    Note.remove({
                            _id: req.params.note_id
@@ -527,20 +529,22 @@ router.route('/notes/:note_id')
                            if (err)
                                res.send(err);
                            if (!err) {
-                               res.json({
-                                   message: 'Note deleted!'
+                               res.send({
+                                   success: true,
+                                   msg: 'Note deleted!'
                                });
                            }
                        }
                    );
                   }else {
-                    res.json({message: 'You are not the owner of this note!'});
+                    res.send({
+                      succes: false,
+                      msg: 'You do not have privilege to delete this note! '});
                   }
           }
       })
     });
-
-
+    
 // Registering routes
 app.use('/api', router);
 
