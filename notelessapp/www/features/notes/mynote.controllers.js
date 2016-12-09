@@ -9,15 +9,46 @@ angular.module('starter')
   //     $scope.contacts.splice(toIndex, 0, moved[0]);
   // };
 
+
+  $scope.updateNote = function() {
+    NoteService.updateNote($scope.note.id, $scope.note).then(function(msg) {
+      $scope.getList();
+    }, function(errMsg) {
+      $state.go('app.mynotes');
+      //If any errors appear during the note update the user will be notified
+      var alertPopup = $ionicPopup.alert({
+        title: 'An error occured',
+        template: errMsg
+      });
+    });
+  };
+
+
   //Delete function for deleting notes
   $scope.delete = function(note) {
-
-    $http.delete(API_ENDPOINT.url + '/notes/' + note._id).success(function(resolve) {
-      console.log('Note', note._id, 'was deleted');
-      $scope.notes.splice($scope.notes.indexOf(note), 1); //This function reorder the view after delete
-      $ionicListDelegate.closeOptionButtons(); //This close the delete-swipe after delete
-    });
-  }
+    // console.log("note object", note.owner);
+    $scope.note.id = note._id
+      NoteService.deleteNote($scope.note.id).then(function(msg) {
+        $scope.notes.splice($scope.notes.indexOf(note), 1); //This function reorder the view after delete
+        $ionicListDelegate.closeOptionButtons(); //This close the delete-swipe after delete
+      },
+    function(errMsg) {
+      console.log($scope.note.id);
+        $state.go('app.mynotes');
+        //If any errors appear during the note update the user will be notified
+        var alertPopup = $ionicPopup.alert({
+          buttons: [{ // Array[Object] (optional). Buttons to place in the popup footer.
+            text: 'Request admin privilege on this note',
+            type: 'button-assertive',
+            onTap: function(e) {
+              //Add function that gives admin rights to delete notes
+            }
+          }],
+          title: 'Message',
+          template: errMsg
+        });
+      });
+    };
 
   //This is the function that edits notes
   $scope.edit = function(note) {
@@ -136,9 +167,12 @@ angular.module('starter')
           title: '',
           content: ''
         };
+
       });
 
   };
+
+
 
 
 });

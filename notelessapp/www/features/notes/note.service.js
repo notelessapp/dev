@@ -30,9 +30,22 @@ angular.module('starter')
     });
   };
 
+  var deleteNote = function(note) {
+    return $q(function(resolve, reject) {
+      $http.delete(API_ENDPOINT.url + '/notes/'+ note).then(function(result) {
+        if (result.data.success) {
+          resolve(result.data.msg);
+        } else {
+          reject(result.data.msg);
+        }
+      });
+    });
+  };
+
   return {
     create: create,
-    updateNote: updateNote
+    updateNote: updateNote,
+    deleteNote: deleteNote
   };
 
 })
