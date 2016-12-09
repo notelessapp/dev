@@ -305,7 +305,7 @@ router.route('/friends/search/:name')
                 });
         });
 
-        router.route('/friends/status/:_id')
+router.route('/friends/status/:_id')
                   //Send frindrequest and update the user friendlist
                 .put(function(req, res) {
                     //instantiate the token
@@ -317,43 +317,77 @@ router.route('/friends/search/:name')
                     }
                     //Find the id of the requested friend name
 
+                    User.findOne({'_id': decoded._id}, function(err, user) {
+                        if (err)
+                          res.send(err);
+                        if (user) {
+                          //returns an array of friendships matcing the request parameters
+                          var friendships = _.filter(user.friendslist, function(obj){
+                              return obj._id == req.params._id;
+                          });
+                          //if the length is over 0 then transform the array into a single object
+                          if(friendships.length > 0 ){
+                              var friendship = friendships[0];
+
+                              //the requesters friendId
+                              var friendToBe = friendship.friendId;
+
+                              //the id of the person who is accepting the friend request
+                              var accepter = decoded._id;
+
+                              //TRYING TO FIND THE FRIENDTOBE, THEN I WANT TO LOOK IN HIS friendslist
+                              //I SPECIFICLY WANT TO FIND THE FRIENDSLIST WHERE THE DECODED._ID ALREADY exists
+                              //THEN WE NEED TO GET THE FRIENDSHIP ID OF THAT FRIENDSLIST SO WE KNOW WHERE TO update
+                              //I CURRENTLY CAN'T GET THE EXACT ID I AM LOOKING for
+                              //BUT I AM SURE THAT THIS IS THE CORRECT APPROACH
+                              //THE CODE BELOW HERE WAS MY FIRST ATTEMPT IT DIDN'T GET THE CORRECT LIST AND I DONT KNOW WHY
+                              User.findOne({'_id': friendToBe}, function(err, alien) {
+                                  if(err)
+                                    res.send(err)
+                                  if(alien){
+
+                                      var alienFriendships = _.filter(alien.friendslist, function(err, alienObj) {
+                                          if(err)
+                                            res.send(err);
+                                          if(!err){
+                                          return alienObj.friendId == accepter;
+                                          console.log('nøffe', alienFriendships);
+                                          }
+                                      });
+                                  }
+                              });
+/*
+                              //sets a variable to push the changes to the friendslist array
+                              var update1 = { $set: {'friendslist': { 'status': 'Accepted' }}};
+                              //find the requesters and updates the friendslist array
+                              User.findOneAndUpdate({'_id': accepter}, update1, function(err) {
+                                  if(err)
+                                    res.send(err);
+                                  if(!err){
+                                      //sets a variable to push the changes to the friendslist array
+                                      var update2 = { $set: {'friendslist': {'status': 'Accepted'}}};
+                                      //find the accepters user and updates the friendslist array
+                                      User.findOneAndUpdate({'_id': friendToBe}, update2,  function(err) {
+                                          if(err)
+                                            res.send(err);
+                                          if(!err){
+                                                  res.json({
+                                                      success: true,
+                                                      message: 'Friendship status has changed'
+                                                  });
+                                          }
+                                      });
 
 
-                    User.find({_id: req.params._id}, function(err, user) {
-                      // owner: decoded._id
-                        if(err)
-                            throw err;
-                        if(!err){
-                            requester = decoded._id;
-                            accepter = decoded.friendslist[0].friendId;
-                            friendname = decoded.friendslist[0].friendName;
-                            console.log("Requester: ", requester);
-                            console.log("Accepteren: ", accepter);
+                                  }
+                              });*/
 
-                                    //sets a variable to push the changes to the friendslist array
-                                    var update1 = { $set: {'friendslist': { 'friendId': accepter, 'friendName': friendname, 'status': 'Accepted' }}};
-                                    //find the requesters and updates the friendslist array
-                                    User.findOneAndUpdate({'_id': requester}, update1, function(err) {
 
-                                    });
-
-                                    //sets a variable to push the changes to the friendslist array
-                                    var update2 = { $set: {'friendslist': { 'friendId': requester, 'friendName': decoded.name, 'status': 'Accepted'}}};
-                                    //find the accepters user and updates the friendslist array
-                                    User.findOneAndUpdate({'_id': accepter}, update2,  function(err) {
-
-                                    });
-                                    res.json({
-                                        success: true,
-                                        message: 'Friendship status has changed'
-                                    });
+                          }
 
                         }
-
-
-                    });
-
-                })
+                      });
+                });
 
 //Authentication route
 router.post('/authenticate', function(req, res) {
