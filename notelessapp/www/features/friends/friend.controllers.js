@@ -16,17 +16,19 @@ angular.module('starter')
      console.log("her", $scope.friendslist);
    }
 
-  //  $scope.updateNote = function() {
-  //    $scope.friend.id = friend._id;
-  //    NoteService.updateNote($scope.friend.id).then(function(msg) {
-  //      $scope.getFriends();
-  //    }, function(errMsg) {
-  //      $state.go('app.friends');
-  //      //If any errors appear during the note update the user will be notified
-  //      var alertPopup = $ionicPopup.alert({
-  //        title: 'An error occured',
-  //        template: errMsg
-  //      });
-  //    });
-  //  };
+   $scope.findFriends = function(friendName){
+     $http.get(API_ENDPOINT.url + '/friends/search/' + friendName)
+        .then(function(result) {
+          $scope.searchResult = result.data;
+          console.log($scope.searchResult);
+        });
+   };
+
+   $scope.addFriend = function(name) {
+     $http.put(API_ENDPOINT.url + '/friends/' + name)
+     .then(function(result) {
+       console.log(name);
+     });
+   }
+
 });
