@@ -295,7 +295,9 @@ router.route('/friends/:name')
 
 router.route('/friends/search/:name')
         .get(function(req, res) {
-                User.find({'name': req.params.name}, function(err, user) {
+                //var query = {};
+                //query.search = new RegExp(req.params.name, 'i');
+                User.find({name: req.params.name}, function(err, user) {
                     if(err)
                         res.send(err);
                     if(!err)
@@ -505,22 +507,37 @@ router.route('/notes/:note_id')
     })
     // Delete the notes
     .delete(function(req, res) {
-        // if (req.params.owner === req.params.user_id) {
-            Note.remove({
-                    _id: req.params.note_id
-                }, function(err, note) {
-                    if (err)
-                        res.send(err);
-                    if (!err) {
-                        res.json({
-                            message: 'Note deleted!'
-                        });
-                    }
+      Note.findById(req.params.note_id, function(err, note){
+          if(err)
+            res.send(err)
+          if(!err){
+                //The request is sent with a JWT to identify the user
+                var token = getToken(req.headers);
+                //If there is a token then decrypt it
+                if (token) {
+                  var decoded = jwt.decode(token, config.secret);
                 }
-            );
-          // }else {
-          //   res.json({message: 'You are not the owner of this note!'});
-          // }
+                var owner = note.owner;
+                var requester = decoded._id;
+
+                if (owner == requester) {
+                   Note.remove({
+                           _id: req.params.note_id
+                       }, function(err, note) {
+                           if (err)
+                               res.send(err);
+                           if (!err) {
+                               res.json({
+                                   message: 'Note deleted!'
+                               });
+                           }
+                       }
+                   );
+                  }else {
+                    res.json({message: 'You are not the owner of this note!'});
+                  }
+          }
+      })
     });
 
 
