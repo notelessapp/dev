@@ -1,6 +1,6 @@
 angular.module('starter')
 
-.controller('NoteController', function($scope, $ionicPopup, NoteService, API_ENDPOINT, $http, $state, $ionicListDelegate, $window) {
+.controller('NoteController', function($scope, $ionicPopup, NoteService, API_ENDPOINT, $http, $state, $ionicListDelegate) {
 
 
   //Note reordering, is not implemented at this point
@@ -140,9 +140,55 @@ angular.module('starter')
   };
 
   //The $scope.share is the function that enable sharing notes between users (Not functionally at this point)
+  // $scope.share = function(note) {
+  //
+  //   var alertPopup = $ionicPopup.alert({
+  //     title: 'failed at creating note!'
+  //   });
+  //
+  //   alert('Share note: ' + note._id);
+  // };
+
+
+
+
   $scope.share = function(note) {
-    alert('Share note: ' + note._id);
-  };
+    $http.get(API_ENDPOINT.url + '/memberinfo')
+      .then(function(result) {
+        $scope.friends = result.data.friendslist;
+        console.log($scope.friends);
+      });
+  $scope.data = {};
+
+  // An elaborate, custom popup
+  var myPopup = $ionicPopup.show({
+
+    templateUrl: 'features/notes/shareNoteTemplate.html',
+    title: 'Enter friendname',
+    scope: $scope,
+    buttons: [
+      { text: 'Cancel' },
+      {
+        text: '<b>Share</b>',
+        type: 'button-positive',
+        onTap: function(e) {
+          if (!$scope.data.wifi) {
+            //don't allow the user to close unless he enters wifi password
+            e.preventDefault();
+          } else {
+            return $scope.data.wifi;
+          }
+        }
+      }
+    ]
+  });
+
+  myPopup.then(function(res) {
+    console.log('Tapped!', res);
+  });
+
+
+ };
 
   //This function moves items from the view
   $scope.moveItem = function(note, fromIndex, toIndex) {
@@ -162,7 +208,6 @@ angular.module('starter')
     $http.get(API_ENDPOINT.url + '/notes')
       .then(function(result) {
         $scope.notes = result.data;
-        console.log($scope.notes);
         $scope.note = {
           title: '',
           content: ''
