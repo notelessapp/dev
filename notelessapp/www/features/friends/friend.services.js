@@ -5,10 +5,11 @@ angular.module('starter')
   var isAuthenticated = false;
   var authToken;
 
-  var accept = function(friendShipId) {
+  var updateFriendStatus = function(friendShipId) {
     return $q(function(resolve, reject) {
-
-      $http.put(API_ENDPOINT.url + '/friends/accept', friendShipId).then(function(result) {
+      console.log("FID", friendShipId);
+      console.log("status", status);
+      $http.put(API_ENDPOINT.url + '/friends/status/'+ friendShipId).then(function(result) {
         if (result.data.success) {
           resolve(result.data.msg);
         } else {
@@ -19,7 +20,7 @@ angular.module('starter')
   };
 
   return {
-    accept: accept
+    updateFriendStatus: updateFriendStatus
     //decline: decline
   };
 
