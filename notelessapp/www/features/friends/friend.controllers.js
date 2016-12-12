@@ -8,6 +8,7 @@ angular.module('starter')
       .then(function(result) {
         $scope.friends = result.data.friendslist;
         console.log($scope.friends);
+
     });
   };
    $scope.acceptFriend = function(friend){
@@ -20,6 +21,7 @@ angular.module('starter')
      $http.get(API_ENDPOINT.url + '/friends/search/' + friendName)
         .then(function(result) {
           $scope.searchResult = result.data;
+          $scope.user_id = result.data._id;
           console.log($scope.searchResult);
         });
    };
