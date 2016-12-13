@@ -305,9 +305,11 @@ router.route('/friends/search/:name')
                 });
         });
 
-router.route('/friends/status/:_id')
+router.route('/friends/status/:_id/:status')
+
                   //Send frindrequest and update the user friendlist
                 .put(function(req, res) {
+
                     //instantiate the token
                     var token = getToken(req.headers);
                     //if there is a token then decrypt it
@@ -331,6 +333,7 @@ router.route('/friends/status/:_id')
 
                               //the requesters friendId
                               var friendToBe = friendship.friendId;
+                              console.log("ftb", friendToBe);
 
                               //the id of the person who is accepting the friend request
                               var accepter = decoded._id;
@@ -341,20 +344,33 @@ router.route('/friends/status/:_id')
                               //I CURRENTLY CAN'T GET THE EXACT ID I AM LOOKING for
                               //BUT I AM SURE THAT THIS IS THE CORRECT APPROACH
                               //THE CODE BELOW HERE WAS MY FIRST ATTEMPT IT DIDN'T GET THE CORRECT LIST AND I DONT KNOW WHY
-                              User.findOne({'_id': friendToBe}, function(err, alien) {
-                                  if(err)
-                                    res.send(err)
-                                  if(alien){
 
-                                      var alienFriendships = _.filter(alien.friendslist, function(err, alienObj) {
-                                          if(err)
-                                            res.send(err);
-                                          if(!err){
-                                          return alienObj.friendId == accepter;
-                                          console.log('nøffe', alienFriendships);
-                                          }
+
+                              User.findOne({'_id': friendToBe}, function(err, user) {
+                                  // if(err)
+                                  // res.send(err);
+                                  // console.log("are we here", user);
+
+                                    console.log("user2", user);
+
+
+                                      var alienFriendships = _.filter(user.friendslist, function(obj2) {
+                                        // console.log("afs", obj2);
+                                        // console.log("accepter", accepter)
+
+                                          return obj2.friendId == accepter;
+                                          // console.log("klam", alienFriendships);
+                                          //
+                                          // // return obj2._id == req.params._id;
+                                          // console.log("accepter2", accepter);
+                                          // console.log('nøffe', alienFriendships);
+
                                       });
-                                  }
+                                      if(alienFriendships.length > 0 ){
+                                        var alienFriendhips = alienFriendships[0];
+                                        console.log("alienvammel", alienFriendship);
+                                      }
+
                               });
 /*
                               //sets a variable to push the changes to the friendslist array
