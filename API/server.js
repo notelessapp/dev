@@ -367,7 +367,7 @@ router.route('/friends/status/:_id/:status')
 
                                       });
                                       if(alienFriendships.length > 0 ){
-                                        var alienFriendhips = alienFriendships[0];
+                                        var alienFriendship = alienFriendships[0];
                                         console.log("alienvammel", alienFriendship);
                                       }
 
