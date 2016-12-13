@@ -326,24 +326,22 @@ router.route('/friends/status/:_id/:status')
                           //returns an array of friendships matcing the request parameters
                           var friendships = _.filter(user.friendslist, function(obj){
                               return obj._id == req.params._id;
+
                           });
+
                           //if the length is over 0 then transform the array into a single object
                           if(friendships.length > 0 ){
                               var friendship = friendships[0];
 
                               //the requesters friendId
                               var friendToBe = friendship.friendId;
-                              console.log("ftb", friendToBe);
 
                               //the id of the person who is accepting the friend request
                               var accepter = decoded._id;
 
-                              //TRYING TO FIND THE FRIENDTOBE, THEN I WANT TO LOOK IN HIS friendslist
-                              //I SPECIFICLY WANT TO FIND THE FRIENDSLIST WHERE THE DECODED._ID ALREADY exists
-                              //THEN WE NEED TO GET THE FRIENDSHIP ID OF THAT FRIENDSLIST SO WE KNOW WHERE TO update
-                              //I CURRENTLY CAN'T GET THE EXACT ID I AM LOOKING for
-                              //BUT I AM SURE THAT THIS IS THE CORRECT APPROACH
-                              //THE CODE BELOW HERE WAS MY FIRST ATTEMPT IT DIDN'T GET THE CORRECT LIST AND I DONT KNOW WHY
+                              var accepterList = req.params._id;
+                              //the status of the request
+                              var status = req.params.status;
 
 
                               User.findOne({'_id': friendToBe}, function(err, user) {
@@ -351,53 +349,47 @@ router.route('/friends/status/:_id/:status')
                                   // res.send(err);
                                   // console.log("are we here", user);
 
-                                    console.log("user2", user);
-
-
+                                      //returns the friendlist of the friendtobe where the accepters ID exists
                                       var alienFriendships = _.filter(user.friendslist, function(obj2) {
-                                        // console.log("afs", obj2);
-                                        // console.log("accepter", accepter)
-
                                           return obj2.friendId == accepter;
-                                          // console.log("klam", alienFriendships);
-                                          //
-                                          // // return obj2._id == req.params._id;
-                                          // console.log("accepter2", accepter);
-                                          // console.log('nøffe', alienFriendships);
-
                                       });
+
                                       if(alienFriendships.length > 0 ){
-                                        var alienFriendship = alienFriendships[0];
-                                        console.log("alienvammel", alienFriendship);
+                                        var alienFriendship = alienFriendships[0]._id;
+
+
+                                        //find the requesters and updates the friendslist array
+                                        User.findOne({'_id': accepter}, function(err, user1) {
+                                            if(err)
+                                              res.send(err);
+
+                                            if(!err){
+                                                var friendslist1 = user1.friendslist.id(accepterList);
+                                                friendslist1.status = status;
+                                                return user1.save();
+                                            }
+                                        });
+
+                                        //find the accepters user and updates the friendslist array
+                                        User.findOne({'_id': friendToBe},  function(err, user2) {
+                                                if(err)
+                                                  res.send(err);
+                                                if(!err){
+                                                    var friendslist2 = user2.friendslist.id(alienFriendship);
+                                                    friendslist2.status = status;
+                                                    return user2.save();
+                                                }
+
+                                            });
+
+                                            res.json({
+                                                success: true,
+                                                message: 'Friendship status has changed'
+                                            });
+
                                       }
 
                               });
-/*
-                              //sets a variable to push the changes to the friendslist array
-                              var update1 = { $set: {'friendslist': { 'status': 'Accepted' }}};
-                              //find the requesters and updates the friendslist array
-                              User.findOneAndUpdate({'_id': accepter}, update1, function(err) {
-                                  if(err)
-                                    res.send(err);
-                                  if(!err){
-                                      //sets a variable to push the changes to the friendslist array
-                                      var update2 = { $set: {'friendslist': {'status': 'Accepted'}}};
-                                      //find the accepters user and updates the friendslist array
-                                      User.findOneAndUpdate({'_id': friendToBe}, update2,  function(err) {
-                                          if(err)
-                                            res.send(err);
-                                          if(!err){
-                                                  res.json({
-                                                      success: true,
-                                                      message: 'Friendship status has changed'
-                                                  });
-                                          }
-                                      });
-
-
-                                  }
-                              });*/
-
 
                           }
 
