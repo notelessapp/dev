@@ -40,7 +40,7 @@ angular.module('starter')
             text: 'Request admin privilege on this note',
             type: 'button-assertive',
             onTap: function(e) {
-              //Add function that gives admin rights to delete notes
+              $ionicListDelegate.closeOptionButtons(); //This close the delete-swipe
             }
           }],
           title: 'Message',
@@ -162,7 +162,8 @@ angular.module('starter')
       title: 'Check for sharing!',
       scope: $scope,
       buttons: [{
-        text: 'Cancel'
+        text: 'Cancel',
+        onTap: $ionicListDelegate.closeOptionButtons() //This close the delete-swipe after delete
       }, {
         text: '<b>Share note</b>',
         type: 'button-positive',
@@ -189,6 +190,7 @@ angular.module('starter')
         title: 'Message',
         template: msg
       });
+      $ionicListDelegate.closeOptionButtons(); //This close the swipe
     }, function(errMsg) {
       $state.go('app.mynotes');
       //If any errors appear during the note update the user will be notified
