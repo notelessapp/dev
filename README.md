@@ -24,4 +24,3 @@ and then to install the package<br>
 open the *\dev\API folder in commandpromp and start the server with the command 'nodemon' or 'node server.js' without ''
 open the *\dev\notelessapp folder in commandpromt  and the the ionic application with the command 'ionic serve' without ''
 
-#2
