@@ -159,7 +159,7 @@ angular.module('starter')
         $scope.friends = result.data.friendslist;
         if($scope.friends && note.shared){
           $scope.friends.forEach(function(friend){
-            friend.shared = note.shared.indexOf(friend._id) > -1;
+            friend.shared = note.shared.indexOf(friend.friendId) > -1;
           });
         }
 
@@ -192,7 +192,7 @@ angular.module('starter')
  $scope.shareNote = function() {
     $scope.friends.forEach(function(friend){
      if(friend.shared){
-       $scope.friendshare.push(friend._id);
+       $scope.friendshare.push(friend.friendId);
      }
    });
    NoteService.shareNote($scope.note.id, $scope.friendshare).then(function(msg) {
@@ -213,13 +213,13 @@ $scope.friendshare = [];
 $scope.sharelist = function(friend) {
   console.log('a friend', friend);
   if(friend.shared){
-    var index =   $scope.friendshare.indexOf(friend._id);    // <-- Not supported in <IE9
+    var index =   $scope.friendshare.indexOf(friend.friendId);    // <-- Not supported in <IE9
     if (index !== -1) {
         $scope.friendshare.splice(index, 1);
     }
   }
   else{
-    $scope.friendshare.push( friend._id);
+    $scope.friendshare.push( friend.friendId);
   }
   console.log("fd", $scope.friendshare);
 }
