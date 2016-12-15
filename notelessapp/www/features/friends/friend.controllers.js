@@ -15,6 +15,7 @@ angular.module('starter')
    $scope.acceptFriend = function(friend) {
   //  console.log("hej", friend);
   $scope.friendslist = friend._id
+  console.log($scope.friendslist);
   $scope.status = "Accepted";
   console.log("her", $scope.friendslist, $scope.status);
   FriendService.updateFriendStatus($scope.friendslist, $scope.status).then(function(msg) {
@@ -31,6 +32,26 @@ angular.module('starter')
 
 }
 
+
+$scope.declineFriend = function(friend) {
+//  console.log("hej", friend);
+$scope.friendslist = friend._id
+console.log($scope.friendslist);
+$scope.status = "Declined";
+console.log("her", $scope.friendslist, $scope.status);
+FriendService.updateFriendStatus($scope.friendslist, $scope.status).then(function(msg) {
+
+ // $scope.getFriendsStatus(); (This should be added so the friendStatus view will be updated)
+}, function(errMsg) {
+ $state.go('app.friends');
+ //If any errors appear during the note update the user will be notified
+ var alertPopup = $ionicPopup.alert({
+   title: 'An error occured',
+   template: errMsg
+ });
+});
+
+}
 
    $scope.findFriends = function(friendName){
      $http.get(API_ENDPOINT.url + '/friends/search/' + friendName)

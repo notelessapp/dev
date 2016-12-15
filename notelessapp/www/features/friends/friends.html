@@ -21,7 +21,7 @@
       <i class="ion-android-contacts" style="font-size: 3em;"> Friends</i>
         <ion-item ng-repeat="friend in friends | filter:{status:'accepted'}">
           <span>{{friend.friendName}}</span><br>
-          
+
 
 
         </ion-item>
@@ -39,7 +39,7 @@
         <ion-item ng-repeat="friend in friends | filter:{status:'pending'}">
           <span>{{friend.friendName}}</span><br>
           <span class="right">Status: {{friend.status}}</span><br>
-          <button class="button button-assertive ion-close right" ng-click="cancelFriend()"></button>
+          <button class="button button-assertive ion-close right" ng-click="declineFriend(friend)"></button>
           <button class="button button-balanced ion-checkmark right" ng-click="acceptFriend(friend)"></button>
 
         </ion-item>

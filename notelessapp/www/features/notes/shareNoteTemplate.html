@@ -1,22 +1,13 @@
 
   <ion-list>
-    <ion-item-sliding ng-repeat="friend in friends">
+    <ion-item-sliding ng-repeat="friend in friends | filter:{status: 'Accepted'}">
       <ion-item>
         <ion-button item-left>
-          <button class="button button-assertive ion-plus right" ng-click="shareNote(note)"></button>
-        </ion-button>
-        <h2>{{friend.friendName}}</h2>
+          <ion-checkbox ng-model="friend.shared" value="{{friend._id}}">{{friend.friendName}}</ion-checkbox>
+          <!-- <button class="button button-assertive ion-plus right" ng-click="shareNote(friend, note)"></button> -->
+        <!-- </ion-button> -->
       </ion-item>
+
     </ion-item-sliding>
+
   </ion-list>
-
-
-  <!-- <ion-item ng-repeat="friend in friends">
-
-   <ion-avatar item-left>
-     <img src="img/marty-avatar.png">
-   </ion-avatar>
-   <h2>{{friend.friendName}}</h2>
-   <p>November 5, 1955</p>
-   <button class="button button-assertive ion-plus right" ng-click="shareNote(note)"></button>
- </ion-item> -->

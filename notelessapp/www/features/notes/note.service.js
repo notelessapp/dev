@@ -5,7 +5,7 @@ angular.module('starter')
   var isAuthenticated = false;
   var authToken;
 
-  var create = function(note) {
+  var createNote = function(note) {
     return $q(function(resolve, reject) {
       $http.post(API_ENDPOINT.url + '/notes', note).then(function(result) {
         if (result.data.success) {
@@ -30,6 +30,8 @@ angular.module('starter')
     });
   };
 
+
+
   var deleteNote = function(note) {
     return $q(function(resolve, reject) {
       $http.delete(API_ENDPOINT.url + '/notes/'+ note).then(function(result) {
@@ -42,10 +44,26 @@ angular.module('starter')
     });
   };
 
+  var shareNote = function(noteId, shared) {
+    return $q(function(resolve, reject) {
+      console.log("noteId", noteId);
+      console.log("shared", shared);
+
+      $http.put(API_ENDPOINT.url + '/notes/'+ noteId, {shared: shared}).then(function(result) {
+        if (result.data.success) {
+          resolve(result.data.msg);
+        } else {
+          reject(result.data.msg);
+        }
+      });
+    });
+  };
+
   return {
-    create: create,
+    createNote: createNote,
     updateNote: updateNote,
-    deleteNote: deleteNote
+    deleteNote: deleteNote,
+    shareNote: shareNote
   };
 
 })
