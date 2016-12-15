@@ -26,14 +26,13 @@ angular.module('starter')
 
   //Delete function for deleting notes
   $scope.delete = function(note) {
-    // console.log("note object", note.owner);
+
     $scope.note.id = note._id
-      NoteService.deleteNote($scope.note.id).then(function(msg) {
+    NoteService.deleteNote($scope.note.id).then(function(msg) {
         $scope.notes.splice($scope.notes.indexOf(note), 1); //This function reorder the view after delete
         $ionicListDelegate.closeOptionButtons(); //This close the delete-swipe after delete
       },
-    function(errMsg) {
-      console.log($scope.note.id);
+      function(errMsg) {
         $state.go('app.mynotes');
         //If any errors appear during the note update the user will be notified
         var alertPopup = $ionicPopup.alert({
@@ -48,7 +47,7 @@ angular.module('starter')
           template: errMsg
         });
       });
-    };
+  };
 
   //This is the function that edits notes
   $scope.edit = function(note) {
@@ -62,7 +61,7 @@ angular.module('starter')
     //Ionic popup function, to display the note in popup-view
     var alertPopup = $ionicPopup.alert({
       scope: $scope,
-      templateUrl: 'features/notes/editNoteTemplate.html',
+      templateUrl: 'features/notes/noteTemplate.html',
       buttons: [{ // Array[Object] (optional). Buttons to place in the popup footer.
         text: 'Cancel',
         type: 'button-assertive',
@@ -108,7 +107,7 @@ angular.module('starter')
     var alertPopup = $ionicPopup.alert({
       title: 'Create a new note',
       //With templateUrl we get a html template in the popup
-      templateUrl: 'features/notes/createNoteTemplate.html',
+      templateUrl: 'features/notes/noteTemplate.html',
       //scope allow us to send/get the data from another view
       scope: $scope,
       buttons: [{ // Array[Object] (optional). Buttons to place in the popup footer.
@@ -139,108 +138,80 @@ angular.module('starter')
     });
   };
 
-  //The $scope.share is the function that enable sharing notes between users (Not functionally at this point)
-  // $scope.share = function(note) {
-  //
-  //   var alertPopup = $ionicPopup.alert({
-  //     title: 'failed at creating note!'
-  //   });
-  //
-  //   alert('Share note: ' + note._id);
-  // };
 
-
-
-
+  //fucntion for note Sharing, this outputs the note and who has its currently shared with.
   $scope.share = function(note) {
     $http.get(API_ENDPOINT.url + '/memberinfo')
       .then(function(result) {
-        console.log('note++ ', note);
         $scope.friends = result.data.friendslist;
-        if($scope.friends && note.shared){
-          $scope.friends.forEach(function(friend){
+        if ($scope.friends && note.shared) {
+          $scope.friends.forEach(function(friend) {
             friend.shared = note.shared.indexOf(friend.friendId) > -1;
           });
         }
 
-        });
-  $scope.data = {};
-  console.log(note._id);
-  $scope.note.id = note._id;
-  console.log("test",$scope.note.id);
+      });
+    $scope.note.id = note._id;
 
 
 
-  // An elaborate, custom popup
-  var myPopup = $ionicPopup.show({
+    // An elaborate, custom popup
+    var myPopup = $ionicPopup.show({
 
-    templateUrl: 'features/notes/shareNoteTemplate.html',
-    title: 'Mark for sharing!',
-    scope: $scope,
-    buttons: [
-      { text: 'Cancel' },
-      {
-        text: '<b>Share</b>',
+      templateUrl: 'features/notes/shareNoteTemplate.html',
+      title: 'Check for sharing!',
+      scope: $scope,
+      buttons: [{
+        text: 'Cancel'
+      }, {
+        text: '<b>Share note</b>',
         type: 'button-positive',
-          onTap: $scope.shareNote
+        //When click on button "Share note", the $scope.shareNote function is executed
+        onTap: $scope.shareNote
+      }]
+    });
+  };
+
+  //shareNote function starts checking if the users already are shared, then adding the shared users to the object $scope.friendshare
+  $scope.shareNote = function() {
+    $scope.friends.forEach(function(friend) {
+      if (friend.shared) {
+        $scope.friendshare.push(friend.friendId);
       }
-    ]
-  });
- };
+    });
+    //NoteService.Sharenote will be given 2 objects, note.id and frendshare,
+    //to perform a put/update note with users the note is shared with
+    NoteService.shareNote($scope.note.id, $scope.friendshare).then(function(msg) {
+      $scope.getList();
+      //empty the array with friendshare after the shareUpdate has been executed
+      $scope.friendshare = [];
+      var alertPopup = $ionicPopup.alert({
+        title: 'Message',
+        template: msg
+      });
+    }, function(errMsg) {
+      $state.go('app.mynotes');
+      //If any errors appear during the note update the user will be notified
+      var alertPopup = $ionicPopup.alert({
+        title: 'An error occured',
+        template: errMsg
+      });
+    });
+  };
 
-
- $scope.shareNote = function() {
-    $scope.friends.forEach(function(friend){
-     if(friend.shared){
-       $scope.friendshare.push(friend.friendId);
-     }
-   });
-   NoteService.shareNote($scope.note.id, $scope.friendshare).then(function(msg) {
-     $scope.getList();
-     $scope.friendshare = [];
-   }, function(errMsg) {
-     $state.go('app.mynotes');
-     //If any errors appear during the note update the user will be notified
-     var alertPopup = $ionicPopup.alert({
-       title: 'An error occured',
-       template: errMsg
-     });
-   });
- };
-
-
-$scope.friendshare = [];
-$scope.sharelist = function(friend) {
-  console.log('a friend', friend);
-  if(friend.shared){
-    var index =   $scope.friendshare.indexOf(friend.friendId);    // <-- Not supported in <IE9
-    if (index !== -1) {
+  //preparing an empty array to get pushed with users to be shared with.
+  $scope.friendshare = [];
+  $scope.sharelist = function(friend) {
+    if (friend.shared) {
+      var index = $scope.friendshare.indexOf(friend.friendId); // <-- Not supported in <IE9
+      if (index !== -1) {
         $scope.friendshare.splice(index, 1);
+      }
+    } else {
+      $scope.friendshare.push(friend.friendId);
     }
   }
-  else{
-    $scope.friendshare.push( friend.friendId);
-  }
-  console.log("fd", $scope.friendshare);
-}
 
- // $scope.shareNote = function(friend, note) {
- //   $scope.friendId = friend._id;
- //
- //   console.log(friend);
- //  //  NoteService.shareNote($scope.friendId, $scope.note).then(function(msg) {
- //  //    $scope.getList();
- //  //  }, function(errMsg) {
- //  //    $state.go('app.mynotes');
- //  //    //If any errors appear during the note update the user will be notified
- //  //    var alertPopup = $ionicPopup.alert({
- //  //      title: 'An error occured',
- //  //      template: errMsg
- //  //    });
- //  //  });
- //
- //
- // }
 
   //This function moves items from the view
   $scope.moveItem = function(note, fromIndex, toIndex) {
@@ -264,12 +235,6 @@ $scope.sharelist = function(friend) {
           title: '',
           content: ''
         };
-
       });
-
   };
-
-
-
-
 });

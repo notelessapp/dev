@@ -17,6 +17,8 @@ angular.module('starter')
     });
   };
 
+
+
   var updateNote = function(noteid, note) {
     return $q(function(resolve, reject) {
 
@@ -46,8 +48,7 @@ angular.module('starter')
 
   var shareNote = function(noteId, shared) {
     return $q(function(resolve, reject) {
-      console.log("noteId", noteId);
-      console.log("shared", shared);
+
 
       $http.put(API_ENDPOINT.url + '/notes/'+ noteId, {shared: shared}).then(function(result) {
         if (result.data.success) {

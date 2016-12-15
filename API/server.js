@@ -571,14 +571,10 @@ router.route('/notes/:note_id')
             if (req.body.date) {
                 note.date = req.body.date;
             }
-            if(req.body.shared)  {
-              note.shared = req.body.shared;
+            if (req.body.shared) {
+                note.shared = req.body.shared;
             }
-            // // var newArray = _.union(req.body, note.shared)
-            // note.shared = req.body;
-            // console.log("note", req.body);
 
-            // Saving the notes update
             note.save(function(err) {
                 if (err)
                     res.send(err);
@@ -587,9 +583,11 @@ router.route('/notes/:note_id')
                         .exec(function(err, note) {
                             console.log(JSON.stringify(note, null, "\t"))
                         })
+
                     res.json({
                         success: true,
-                        message: 'Note updated!'
+                        msg: note.shared,
+
                     });
                 }
             });

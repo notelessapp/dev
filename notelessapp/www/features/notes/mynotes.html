@@ -19,8 +19,8 @@
       <ion-list show-delete="data.showDelete" sortable draggable=".card" sorted="onReorder($fromIndex, $toIndex)" show-reorder="data.showReorder">
 
         <ion-item ng-repeat="note in notes | orderBy:'-date'" class="item-remove-animate" ng-click="edit(note)" on-release="release($event)">
-          <span>{{note.title}}</span><br>Owned by: {{note.ownerFullname}}
-          <span class="right">{{note.date | date : shortDate : timezone}} </span>
+          <span>{{note.title}}</span><br>Created by: {{note.ownerFullname}}
+          <span class="right">{{note.date | date : shortDate : timezone}} </span><br>
           <ion-delete-button class="ion-minus-circled" ng-click="onItemDelete(item)">
           </ion-delete-button>
           <ion-option-button class="button-assertive" ng-click="delete(note)">
