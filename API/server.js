@@ -583,7 +583,7 @@ router.route('/notes/:note_id')
                         .exec(function(err, note) {
                             console.log(JSON.stringify(note, null, "\t"))
                         })
-
+                        
                     res.json({
                         success: true,
                         msg: note.shared,

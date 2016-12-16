@@ -7,7 +7,7 @@ angular.module('starter', ['ionic'])
 
 .run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {
-    if(window.cordova && window.cordova.plugins.Keyboard) {
+    if (window.cordova && window.cordova.plugins.Keyboard) {
       // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
       // for form inputs)
       cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
@@ -17,7 +17,7 @@ angular.module('starter', ['ionic'])
       // a much nicer keyboard experience.
       cordova.plugins.Keyboard.disableScroll(true);
     }
-    if(window.StatusBar) {
+    if (window.StatusBar) {
       StatusBar.styleDefault();
     }
   });
@@ -27,70 +27,69 @@ angular.module('starter', ['ionic'])
 .config(function($stateProvider, $urlRouterProvider) {
 
   $stateProvider
-  .state('outside', {
-    url: '/outside',
-    abstract: true,
-    templateUrl: 'features/login/outside.html'
-  })
-  .state('outside.login', {
-    url: '/login',
-    templateUrl: 'features/login/login.html',
-    controller: 'LoginCtrl'
-  })
-  .state('outside.register', {
-    url: '/register',
-    templateUrl: 'features/login/register.html',
-    controller: 'RegisterCtrl'
-  })
-  .state('app', {
-    url: '/app',
-    abstract: true,
-    templateUrl: 'features/menu/menu.html'
-  })
-  .state('app.mynotes', {
-    url: '/mynotes',
-    views: {
-      'menuContent': {
-        templateUrl: 'features/notes/mynotes.html',
-        controller: 'NoteController'
+    .state('outside', {
+      url: '/outside',
+      abstract: true,
+      templateUrl: 'features/login/outside.html'
+    })
+    .state('outside.login', {
+      url: '/login',
+      templateUrl: 'features/login/login.html',
+      controller: 'LoginCtrl'
+    })
+    .state('outside.register', {
+      url: '/register',
+      templateUrl: 'features/login/register.html',
+      controller: 'RegisterCtrl'
+    })
+    .state('app', {
+      url: '/app',
+      abstract: true,
+      templateUrl: 'features/menu/menu.html'
+    })
+    .state('app.mynotes', {
+      url: '/mynotes',
+      views: {
+        'menuContent': {
+          templateUrl: 'features/notes/mynotes.html',
+          controller: 'NoteController'
+        }
       }
-    }
-  })
-  .state('app.friends', {
-    url: '/friends',
-    views: {
-      'menuContent': {
-        templateUrl: 'features/friends/friends.html',
-        controller: 'friendCtrl'
+    })
+    .state('app.friends', {
+      url: '/friends',
+      views: {
+        'menuContent': {
+          templateUrl: 'features/friends/friends.html',
+          controller: 'friendCtrl'
 
+        }
       }
-    }
-  })
-  .state('app.profile', {
-    url: '/profile',
-    views: {
-      'menuContent': {
-        templateUrl: 'features/profile/profile.html',
-        controller: 'InsideCtrl'
+    })
+    .state('app.profile', {
+      url: '/profile',
+      views: {
+        'menuContent': {
+          templateUrl: 'features/profile/profile.html',
+          controller: 'InsideCtrl'
+        }
       }
-    }
-  })
-  .state('app.groups', {
-    url: '/groups',
-    views: {
-      'menuContent': {
-        templateUrl: 'features/groups/groups.html'
+    })
+    .state('app.groups', {
+      url: '/groups',
+      views: {
+        'menuContent': {
+          templateUrl: 'features/groups/groups.html'
+        }
       }
-    }
-  });
+    });
 
   $urlRouterProvider.otherwise('/outside/login');
 })
 
-.run(function ($rootScope, $state, AuthService, AUTH_EVENTS) {
-  $rootScope.$on('$stateChangeStart', function (event,next, nextParams, fromState) {
+.run(function($rootScope, $state, AuthService, AUTH_EVENTS) {
+  $rootScope.$on('$stateChangeStart', function(event, next, nextParams, fromState) {
     if (!AuthService.isAuthenticated()) {
-      console.log(next.name);
       if (next.name !== 'outside.login' && next.name !== 'outside.register') {
         event.preventDefault();
         $state.go('outside.login');
