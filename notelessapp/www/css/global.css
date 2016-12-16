@@ -4,7 +4,6 @@
  of the CSS is in multiple files, there are multiple requests made before the page can be displayed
  on a browser, therefore slowing down the pageload */
 .popup-body {
-  font-size:65% !important;
   text-align:center;
 }
 .popup-title {

@@ -583,11 +583,20 @@ router.route('/notes/:note_id')
                         .exec(function(err, note) {
                             console.log(JSON.stringify(note, null, "\t"))
                         })
-                        
-                    res.json({
-                        success: true,
-                        msg: note.shared,
 
+                    User.find({
+                        '_id': {
+                            $in: note.shared
+                        }
+                    }, function(err, user) {
+                        console.log("tester", user);
+                        var sharedWith = _.map(user, 'name');
+
+                        sharedWithBreaks = _.join(sharedWith, '<br>')
+                        res.json({
+                            success: true,
+                            msg: sharedWithBreaks
+                        });
                     });
                 }
             });

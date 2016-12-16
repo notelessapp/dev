@@ -187,7 +187,7 @@ angular.module('starter')
       //empty the array with friendshare after the shareUpdate has been executed
       $scope.friendshare = [];
       var alertPopup = $ionicPopup.alert({
-        title: 'Message',
+        title: 'Shared with',
         template: msg
       });
       $ionicListDelegate.closeOptionButtons(); //This close the swipe
