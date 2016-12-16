@@ -28,10 +28,18 @@ angular.module('starter')
   //Function for signing up new users.
   $scope.signup = function() {
     AuthService.register($scope.user).then(function(msg) {
-      $state.go('outside.login');
+      // $state.go('outside.login');
       var alertPopup = $ionicPopup.alert({
         title: 'Register success!',
         template: msg
+      });
+      AuthService.login($scope.user).then(function(msg) {
+        $state.go('app.profile');
+      }, function(errMsg) {
+        var alertPopup = $ionicPopup.alert({
+          title: 'Login failed!',
+          template: errMsg
+        });
       });
     }, function(errMsg) {
       var alertPopup = $ionicPopup.alert({
