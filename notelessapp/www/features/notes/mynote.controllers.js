@@ -150,17 +150,44 @@ angular.module('starter')
           });
         }
 
+
+
       });
     $scope.note.id = note._id;
 
 
 
     // An elaborate, custom popup
+    if(note.shared.length == 0) {
+      var myPopup = $ionicPopup.show({
+
+        templateUrl: 'features/notes/shareNoteTemplate.html',
+        title: 'Check for sharing!',
+        scope: $scope,
+
+        buttons: [{
+          text: 'Cancel',
+          onTap: $ionicListDelegate.closeOptionButtons() //This close the delete-swipe after delete
+        }, {
+          text: '<b>Find a friend!</b>',
+          type: 'button-positive',
+          //When click on button "Share note", the $scope.shareNote function is executed
+          onTap: function(e) {
+            $ionicListDelegate.closeOptionButtons()
+            $state.go('app.friends');
+        }
+
+        }]
+      });
+
+    }
+    else {
     var myPopup = $ionicPopup.show({
 
       templateUrl: 'features/notes/shareNoteTemplate.html',
       title: 'Check for sharing!',
       scope: $scope,
+
       buttons: [{
         text: 'Cancel',
         onTap: $ionicListDelegate.closeOptionButtons() //This close the delete-swipe after delete
@@ -171,8 +198,13 @@ angular.module('starter')
         onTap: $scope.shareNote
       }]
     });
-  };
+  }};
 
+  $scope.closePopup = function() {
+    $ionicListDelegate.closeOptionButtons();
+    Popup.close();
+
+  };
   //shareNote function starts checking if the users already are shared, then adding the shared users to the object $scope.friendshare
   $scope.shareNote = function() {
     $scope.friends.forEach(function(friend) {

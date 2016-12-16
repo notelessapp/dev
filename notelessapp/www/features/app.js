@@ -28,26 +28,31 @@ angular.module('starter', ['ionic'])
 
   $stateProvider
     .state('outside', {
+      cache: false,
       url: '/outside',
       abstract: true,
       templateUrl: 'features/login/outside.html'
     })
     .state('outside.login', {
+      cache: false,
       url: '/login',
       templateUrl: 'features/login/login.html',
       controller: 'LoginCtrl'
     })
     .state('outside.register', {
+      cache: false,
       url: '/register',
       templateUrl: 'features/login/register.html',
       controller: 'RegisterCtrl'
     })
     .state('app', {
+      cache: false,
       url: '/app',
       abstract: true,
       templateUrl: 'features/menu/menu.html'
     })
     .state('app.mynotes', {
+      cache: false,
       url: '/mynotes',
       views: {
         'menuContent': {
@@ -57,6 +62,7 @@ angular.module('starter', ['ionic'])
       }
     })
     .state('app.friends', {
+      cache: false,
       url: '/friends',
       views: {
         'menuContent': {
@@ -67,6 +73,7 @@ angular.module('starter', ['ionic'])
       }
     })
     .state('app.profile', {
+      cache: false,
       url: '/profile',
       views: {
         'menuContent': {
@@ -76,6 +83,7 @@ angular.module('starter', ['ionic'])
       }
     })
     .state('app.groups', {
+      cache: false,
       url: '/groups',
       views: {
         'menuContent': {
