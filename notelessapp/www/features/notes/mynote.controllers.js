@@ -144,44 +144,24 @@ angular.module('starter')
     $http.get(API_ENDPOINT.url + '/memberinfo')
       .then(function(result) {
         $scope.friends = result.data.friendslist;
-        if ($scope.friends && note.shared) {
+        $scope.friendowner = result.data.friendslist[0].friendId
+
+        if(note.owner = $scope.friendowner) {
+          //we should have error handling here, so sharing a note with the owner is not allowed or disabled
+        }
+          if ($scope.friends && note.shared) {
           $scope.friends.forEach(function(friend) {
             friend.shared = note.shared.indexOf(friend.friendId) > -1;
           });
         }
-
-
-
       });
     $scope.note.id = note._id;
 
 
 
+
     // An elaborate, custom popup
-    if(note.shared.length == 0) {
-      var myPopup = $ionicPopup.show({
 
-        templateUrl: 'features/notes/shareNoteTemplate.html',
-        title: 'Check for sharing!',
-        scope: $scope,
-
-        buttons: [{
-          text: 'Cancel',
-          onTap: $ionicListDelegate.closeOptionButtons() //This close the delete-swipe after delete
-        }, {
-          text: '<b>Find a friend!</b>',
-          type: 'button-positive',
-          //When click on button "Share note", the $scope.shareNote function is executed
-          onTap: function(e) {
-            $ionicListDelegate.closeOptionButtons()
-            $state.go('app.friends');
-        }
-
-        }]
-      });
-
-    }
-    else {
     var myPopup = $ionicPopup.show({
 
       templateUrl: 'features/notes/shareNoteTemplate.html',
@@ -198,13 +178,22 @@ angular.module('starter')
         onTap: $scope.shareNote
       }]
     });
-  }};
+  };
 
-  $scope.closePopup = function() {
-    $ionicListDelegate.closeOptionButtons();
-    Popup.close();
+  $scope.findFriends = function(friendName) {
+    if(friendName == 0) {
+      $scope.searchResult = {};
+    }
+
+    $http.get(API_ENDPOINT.url + '/friends/search/' + friendName)
+      .then(function(result) {
+        $scope.searchResult = result.data;
+        $scope.user_id = result.data._id;
+
+    });
 
   };
+
   //shareNote function starts checking if the users already are shared, then adding the shared users to the object $scope.friendshare
   $scope.shareNote = function() {
     $scope.friends.forEach(function(friend) {

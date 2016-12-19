@@ -321,19 +321,39 @@ router.route('/friends/:name')
     });
 });
 
+
 router.route('/friends/search/:name')
-    .get(function(req, res) {
-        //var query = {};
-        //query.search = new RegExp(req.params.name, 'i');
-        User.find({
-            'name': req.params.name
-        }, function(err, user) {
-            if (err)
-                res.send(err);
-            if (!err)
-                res.json(user);
-        });
-    });
+.get(function(req, res) {
+
+  var regex = new RegExp(req.params.name, "i")
+  ,   query = { name: regex };
+
+  User.find(query, function(err, user) {
+      if (err) {
+          res.json(err);
+      }
+      if(!err) {
+
+        console.log(user);
+-      res.json(user);}
+  });
+
+});
+
+//
+// router.route('/friends/search/:name')
+//     .get(function(req, res) {
+//         //var query = {};
+//         //query.search = new RegExp(req.params.name, 'i');
+//         User.find({
+//             'name': req.params.name
+//         }, function(err, user) {
+//             if (err)
+//                 res.send(err);
+//             if (!err)
+//                 res.json(user);
+//         });
+//     });
 
 router.route('/friends/status/:_id/:status')
 

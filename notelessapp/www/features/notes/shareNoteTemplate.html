@@ -1,8 +1,6 @@
 
   <ion-list>
-    <ion-item ng-if="friends.length === 0">You do not have any  <br> friends to share with <br>
-      
-    </ion-item>
+
      <ion-item-sliding ng-repeat="friend in friends | filter:{status: 'Accepted'}">
       <ion-item>
         <ion-button item-left>

@@ -46,11 +46,17 @@ angular.module('starter')
     }
 
     $scope.findFriends = function(friendName) {
+      if(friendName == 0) {
+        $scope.searchResult = {};
+      }
+
       $http.get(API_ENDPOINT.url + '/friends/search/' + friendName)
         .then(function(result) {
           $scope.searchResult = result.data;
           $scope.user_id = result.data._id;
-        });
+
+      });
+
     };
 
     $scope.addFriend = function(name) {
