@@ -1,16 +1,41 @@
 <ion-view view-title="" ng-init="getFriends()">
   <ion-content>
+
+    <div class="bar bar-header item-input-inset">
+  <label class="item-input-wrapper">
+    <i class="icon ion-ios-search placeholder-icon"></i>
+    <input type="search" id="clearInput" placeholder="Find friends!" ng-keyup="findFriends(friendName)" ng-model="friendName">
+  </label>
+  <button class="button button-clear">
+    Cancel
+  </button>
+</div>
+
+
+
+
+
     <div class="card-container">
 
+      <a class="item item-icon-left" href="#/app/friendsaccepted">
+    <i class="icon ion-person-stalker"></i>
+    Friends
+    <span class="badge badge-balanced">{{numberOfFriends.length}}</span>
+  </a>
+  <a class="item item-icon-left" href="#/app/friendsrequested">
+<i class="icon ion-person-stalker"></i>
+Requested
+<span class="badge badge-assertive">{{numberOfRequest.length}}</span>
+</a>
+<a class="item item-icon-left" href="#/app/friendspending">
+<i class="icon ion-person-stalker"></i>
+Pending
+<span class="badge badge-positive">{{numberOfPending.length}}</span>
+</a>
 
 
       <ion-list>
-        <div class="list list-inset">
-          <label class="item item-input">
-            <i class="icon ion-search placeholder-icon"></i>
-            <input type="text" placeholder="Find friends!" id="clearInput" ng-keyup="findFriends(friendName)" ng-model="friendName">
-          </label>
-        </div>
+
         <ion-item ng-repeat="result in searchResult">
 
           <div class="item item-avatar" style="border-style:none;">
@@ -21,33 +46,9 @@
           </div>
         </ion-item>
       </ion-list>
-      <ion-list class="text-center">
-      <i class="ion-android-contacts" style="font-size: 3em;"> Friends</i>
-        <ion-item ng-repeat="friend in friends | filter:{status:'accepted'}">
-          <span>{{friend.friendName}}</span><br>
 
 
 
-        </ion-item>
-      </ion-list>
-      <ion-list class="text-center">
-      <i class="ion-android-person-add" style="font-size: 3em;">Requests</i>
-        <ion-item ng-repeat="friend in friends | filter:{status:'Requested'}">
-          <span>{{friend.friendName}}</span><br>
-          <span class="right">Status: {{friend.status}}</span><br>
-
-        </ion-item>
-      </ion-list>
-      <ion-list class="text-center">
-      <i class="ion-email-unread" style="font-size: 3em;">Pending</i>
-        <ion-item ng-repeat="friend in friends | filter:{status:'pending'}">
-          <span>{{friend.friendName}}</span><br>
-          <span class="right">Status: {{friend.status}}</span><br>
-          <button class="button button-assertive ion-close right" ng-click="declineFriend(friend)"></button>
-          <button class="button button-balanced ion-checkmark right" ng-click="acceptFriend(friend)"></button>
-
-        </ion-item>
-      </ion-list>
     </div>
   </ion-content>
 </ion-view>

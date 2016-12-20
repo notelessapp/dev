@@ -72,6 +72,39 @@ angular.module('starter', ['ionic'])
         }
       }
     })
+    .state('app.friendsaccepted', {
+      cache: false,
+      url: '/friendsaccepted',
+      views: {
+        'menuContent': {
+          templateUrl: 'features/friends/friendsAccepted.html',
+          controller: 'friendCtrl'
+
+        }
+      }
+    })
+    .state('app.friendsRequested', {
+      cache: false,
+      url: '/friendsrequested',
+      views: {
+        'menuContent': {
+          templateUrl: 'features/friends/friendsRequested.html',
+          controller: 'friendCtrl'
+
+        }
+      }
+    })
+    .state('app.friendsPending', {
+      cache: false,
+      url: '/friendspending',
+      views: {
+        'menuContent': {
+          templateUrl: 'features/friends/friendsPending.html',
+          controller: 'friendCtrl'
+
+        }
+      }
+    })
     .state('app.profile', {
       cache: false,
       url: '/profile',
