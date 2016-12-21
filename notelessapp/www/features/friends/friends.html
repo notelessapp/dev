@@ -1,4 +1,5 @@
 <ion-view view-title="" ng-init="getFriends()">
+
   <ion-content>
 
     <div class="bar bar-header item-input-inset">
@@ -11,6 +12,18 @@
   </button>
 </div>
 
+<ion-list>
+
+  <ion-item ng-repeat="result in searchResult">
+
+    <div class="item item-avatar" style="border-style:none;">
+      <img ng-src="{{result.avatar}}">
+      <span class="right"><button class="button button-balanced ion-plus right" ng-click="addFriend(result.name)"></button></span>
+      <h2>{{result.name}}</h2>
+      <p>{{result.fullname}}</p>
+    </div>
+  </ion-item>
+</ion-list>
 
 
 
@@ -34,18 +47,6 @@ Pending
 </a>
 
 
-      <ion-list>
-
-        <ion-item ng-repeat="result in searchResult">
-
-          <div class="item item-avatar" style="border-style:none;">
-            <img ng-src="{{result.avatar}}">
-            <span class="right"><button class="button button-balanced ion-plus right" ng-click="addFriend(result.name)"></button></span>
-            <h2>{{result.name}}</h2>
-            <p>{{result.fullname}}</p>
-          </div>
-        </ion-item>
-      </ion-list>
 
 
 

@@ -82,6 +82,7 @@ router.get('/memberinfo', passport.authenticate('jwt', {
                     msg: 'Authentication failed. User not found.'
                 });
             } else {
+
                 res.json(user);
             }
         });
@@ -163,6 +164,9 @@ router.route('/users')
                 res.send(err);
             if (!err) {
                 User.find({})
+                console.log("her", users);
+
+                // var usersobj = _.map(users, 'avatar')
 
                 res.json(users);
             }

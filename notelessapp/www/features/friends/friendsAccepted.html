@@ -1,19 +1,26 @@
 <ion-view view-title="Friends" ng-init="getFriends()">
-  <ion-list class="text-center">
-  <i class="ion-android-contacts" style="font-size: 3em;"> Friends</i>
-    <ion-item ng-repeat="friend in friends | filter:{status:'accepted'}">
+<ion-content>
+  <!-- The list directive is great, but be sure to also checkout the collection repeat directive when scrolling through large lists -->
+  <ion-list show-delete="data.showDelete" sortable draggable=".card" sorted="onReorder($fromIndex, $toIndex)" show-reorder="data.showReorder">
 
-      <div class="list">
+    <ion-item ng-repeat="friend in friends | filter:{status:'accepted'}" class="item-remove-animate text-center" ng-click="view(friend)" on-release="release($event)">
 
-          <a class="item item-avatar" href="#">
-            <img src="{{friend.avatar}}">
+        <div class="list">
+
+          <span class="item-avatar">
+            <img src="{{avatar}}">
             <h2>{{friend.friendName}}</h2>
-            <p>You became friends the {{friend.date | date : shortDate : timezone}}</p>
-          </a>
-
-
+            <p>Friends since {{friend.date | date : shortDate : timezone}}</p>
+          </span>
+          <ion-delete-button class="ion-minus-circled" ng-click="onItemDelete(item)">
+          </ion-delete-button>
+          <ion-option-button class="button-assertive" ng-click="delete(friend)">
+            Remove
+          </ion-option-button>
+          <ion-reorder-button class="ion-navicon" on-reorder="moveItem(item, $fromIndex, $toIndex)"></ion-reorder-button>
+          </ion-item>
       </div>
-    </ion-item>
-  </ion-list>
 
+
+</ion-content>
 </ion-view>
