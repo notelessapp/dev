@@ -103,10 +103,7 @@ h1 {
   cursor: pointer;
 }
 
-.popup {
-  top: 0;
-  position: absolute;
-}
+
 
 .backdrop {
   background-color:white;
