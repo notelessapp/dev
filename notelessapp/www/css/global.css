@@ -74,7 +74,7 @@ body  {font-family: 'Roboto';}
 }
 
 h1 {
-  margin-bottom:40px;
+  margin-bottom:0px;
   background: -webkit-linear-gradient(#387ef5, #0a3e96);
   background: -o-linear-gradient(#387ef5, #0a3e96);
   background: linear-gradient(#387ef5, #0a3e96);
@@ -101,4 +101,13 @@ h1 {
   align-items: center;
   justify-content: space-around;
   cursor: pointer;
+}
+
+.popup {
+  top: 0;
+  position: absolute;
+}
+
+.backdrop {
+  background-color:white;
 }
