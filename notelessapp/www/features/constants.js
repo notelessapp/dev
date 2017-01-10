@@ -5,6 +5,6 @@ angular.module('starter')
 })
 
 .constant('API_ENDPOINT', {
-  url: 'https://notelessapi.herokuapp.com/'
+  url: 'https://notelessappi.herokuapp.com/api'
   //  Change the URL to https://notelessapi.herokuapp.com/ for live production'
 });
