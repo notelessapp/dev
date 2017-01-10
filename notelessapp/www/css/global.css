@@ -3,6 +3,13 @@
 /* -- minify and combine style sheets and make them external, then the browser or device can cache it?
  of the CSS is in multiple files, there are multiple requests made before the page can be displayed
  on a browser, therefore slowing down the pageload */
+body  {font-family: 'Roboto';}
+.popup-container .popup {
+  width:100%;
+  background-color:white;
+  opacity:1;
+}
+
 .popup-body {
   text-align:center;
 }
@@ -49,6 +56,14 @@
   margin-top:20px;
 }
 
+.mg-top-medium {
+  margin-top:40px;
+}
+
+.mg-top-large {
+  margin-top:60px;
+}
+
 .searchFriends {
   padding:0px;
   margin:0px;
@@ -56,4 +71,15 @@
 
 .searchHeight {
   height: 60px;
+}
+
+h1 {
+  margin-bottom:60px;
+  background: -webkit-linear-gradient(#387ef5, #0a3e96);
+  background: -o-linear-gradient(#387ef5, #0a3e96);
+  background: linear-gradient(#387ef5, #0a3e96);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-size:5em;
+  text-align:center;
 }

@@ -5,6 +5,6 @@ angular.module('starter')
 })
 
 .constant('API_ENDPOINT', {
-  url: 'http://localhost:8080/api'
+  url: 'https://notelessapi.herokuapp.com/'
   //  Change the URL to https://notelessapi.herokuapp.com/ for live production'
 });
