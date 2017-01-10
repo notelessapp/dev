@@ -67,6 +67,16 @@ angular.module('starter')
       $scope.occupation = result.data.occupation;
       $scope.password = result.data.password;
       $scope.user = {}; //Important to make the $scope.user to an object so it can be updated
+
+      if($scope.fullname == null) {
+        $scope.fullname = "Fill out your fullname";
+      }
+      if($scope.occupation == null){
+        $scope.occupation = "Fill out your occupation";
+      }
+      if($scope.email == null){
+        $scope.email = "Fill out your email";
+      }
     });
   };
 

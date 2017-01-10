@@ -2,14 +2,12 @@
 
   <ion-content>
 
-    <div class="bar bar-header item-input-inset">
-  <label class="item-input-wrapper">
-    <i class="icon ion-ios-search placeholder-icon"></i>
+<div class="list item-input-inset searchFriends">
+  <label class="item-input-wrapper searchHeight">
+    <i class="icon ion-ios-search placeholder-icon larger"></i>
     <input type="search" id="clearInput" placeholder="Find friends!" ng-keyup="findFriends(friendName)" ng-model="friendName">
   </label>
-  <button class="button button-clear">
-    Cancel
-  </button>
+
 </div>
 
 <ion-list>
@@ -36,12 +34,12 @@
     <span class="badge badge-balanced">{{numberOfFriends.length}}</span>
   </a>
   <a class="item item-icon-left" href="#/app/friendsrequested">
-<i class="icon ion-person-stalker"></i>
+<i class="icon ion-paper-airplane"></i>
 Requested
 <span class="badge badge-assertive">{{numberOfRequest.length}}</span>
 </a>
 <a class="item item-icon-left" href="#/app/friendspending">
-<i class="icon ion-person-stalker"></i>
+<i class="icon ion-flag"></i>
 Pending
 <span class="badge badge-positive">{{numberOfPending.length}}</span>
 </a>

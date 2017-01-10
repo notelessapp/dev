@@ -1,37 +1,34 @@
 <ion-view view-title="Profile settings" ng-init="getInfo()">
   <ion-content>
     <div class="card-container padding">
-      <label>Name</label>
-      <label class="item item-input">
 
+        <label class="item item-input">
+          <i class="icon ion-person placeholder-icon larger"></i>
           <input type="text" placeholder="{{username}}" ng-model="user.name">
         </label>
-      <label>Password</label>
         <label class="item item-input">
-          <input type="password" placeholder="" ng-model="user.password">
+          <i class="icon ion-locked placeholder-icon larger"></i>
+          <input type="password" placeholder="Change your password" ng-model="user.password">
         </label>
-      <label>Full Name</label>
+
         <label class="item item-input">
+          <i class="icon ion-card placeholder-icon larger"></i>
           <input type="text" placeholder="{{fullname}}" ng-model="user.fullname">
         </label>
-      <label>Occupation</label>
+
         <label class="item item-input">
+          <i class="icon ion-briefcase placeholder-icon larger"></i>
           <input type="text" placeholder="{{occupation}}" ng-model="user.occupation">
         </label>
-    <label>Email</label>
-        <label class="item item-input">
 
+        <label class="item item-input">
+          <i class="icon ion-at placeholder-icon larger"></i>
           <input type="text" placeholder="{{email}}" ng-model="user.email">
         </label>
 
-      <button class="button button-full button-positive" ng-click="updateUser()">
-        Save
+      <button class="button button-full button-balanced" ng-click="updateUser()">
+        Update
       </button>
-       {{ ServerResponse }}
-
-      <button class="button button-full button-assertive" ng-click="destroySession()">
-          Destroy token
-        </button>
     </div>
   </ion-content>
 </ion-view>
