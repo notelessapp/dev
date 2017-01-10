@@ -11,14 +11,14 @@
   box-sizing: border-box;
 }
 
-.card-container {
+.LoginContainer {
   width: 100%;
   max-width: 450px;
   padding: 26px;
   margin: 0 auto;
 }
 
-.card {
+.loginMiddle {
   background: #FFF;
   border-radius: 3px;
   box-shadow: 0 3px 4px rgba(0,0,0,0.3);
