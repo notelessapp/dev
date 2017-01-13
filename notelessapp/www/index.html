@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+  <title></title>
+
+  <link rel="manifest" href="manifest.json">
+
+  <!-- un-comment this code to enable service worker
+    <script>
+      if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('service-worker.js')
+          .then(() => console.log('service worker installed'))
+          .catch(err => console.log('Error', err));
+      }
+    </script>-->
+
+  <link href="lib/ionic/css/ionic.css" rel="stylesheet">
+  <!-- should combine all the .css - would make pageload faster ? -->
+  <link href="css/global.css" rel="stylesheet">
+  <link href="css/colors.css" rel="stylesheet">
+  <link href="css/fonts.css" rel="stylesheet">
+  <link href="css/master.css" rel="stylesheet">
+  <link href="features/notes/mynotes.css" rel="stylesheet">
+  <link href="features/profile/profile.css" rel="stylesheet">
+  <link rel="stylesheet" href="http://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+  <!-- IF using Sass (run gulp sass first), then uncomment below and remove the CSS includes above
+    <link href="css/ionic.app.css" rel="stylesheet">
+    -->
+
+  <!-- ionic/angularjs js -->
+  <script src="lib/ionic/js/ionic.bundle.js"></script>
+
+  <!-- cordova script (this will be a 404 during development) -->
+  <script src="cordova.js"></script>
+
+  <!-- your app's js -->
+  <script src="features/app.js"></script>
+  <script src="features/login/login.controllers.js"></script>
+  <script src="features/login/login.services.js"></script>
+  <script src="features/menu/menu.controllers.js"></script>
+  <script src="features/notes/mynote.controllers.js"></script>
+  <script src="features/notes/note.service.js"></script>
+  <script src="features/friends/friend.controllers.js"></script>
+  <script src="features/friends/friend.services.js"></script>
+  <script src="features/constants.js"></script>
+
+
+
+</head>
+
+<body ng-app="starter" ng-controller="AppCtrl">
+  <ion-nav-view></ion-nav-view>
+
+
+</body>
+
+</html>

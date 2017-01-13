@@ -1,0 +1,53 @@
+<ion-view view-title="" ng-init="getFriends()">
+
+  <ion-content>
+
+<div class="list item-input-inset searchFriends">
+  <label class="item-input-wrapper searchHeight">
+    <i class="icon ion-ios-search placeholder-icon larger"></i>
+    <input type="search" id="clearInput" placeholder="Find friends!" ng-keyup="findFriends(friendName)" ng-model="friendName">
+  </label>
+
+</div>
+
+<ion-list>
+
+  <ion-item ng-repeat="result in searchResult">
+
+    <div class="item item-avatar" style="border-style:none;">
+      <img ng-src="{{result.avatar}}">
+      <span class="right"><button class="button button-balanced ion-plus right" ng-click="addFriend(result.name)"></button></span>
+      <h2>{{result.name}}</h2>
+      <p>{{result.fullname}}</p>
+    </div>
+  </ion-item>
+</ion-list>
+
+
+
+
+    <div class="card-container">
+
+      <a class="item item-icon-left" href="#/app/friendsaccepted">
+    <i class="icon ion-person-stalker"></i>
+    Friends
+    <span class="badge badge-balanced">{{numberOfFriends.length}}</span>
+  </a>
+  <a class="item item-icon-left" href="#/app/friendsrequested">
+<i class="icon ion-paper-airplane"></i>
+Requested
+<span class="badge badge-assertive">{{numberOfRequest.length}}</span>
+</a>
+<a class="item item-icon-left" href="#/app/friendspending">
+<i class="icon ion-flag"></i>
+Pending
+<span class="badge badge-positive">{{numberOfPending.length}}</span>
+</a>
+
+
+
+
+
+    </div>
+  </ion-content>
+</ion-view>

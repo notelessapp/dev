@@ -1,0 +1,42 @@
+<ion-view view-title="Notes">
+
+  <div class="card-container" ng-init="getList()">
+
+    <div class="bar bar-footer bar-dark">
+
+      <div class="buttons">
+        <button class="button button-icon icon ion-ios-plus-outline" ng-click="popupNoteCreate()"></button>
+      </div>
+      <!--
+        <button class="button" ng-click="data.showDelete = false; data.showReorder = !data.showReorder">
+            Reorder
+        </button> -->
+
+    </div>
+
+    <ion-content>
+
+      <!-- The list directive is great, but be sure to also checkout the collection repeat directive when scrolling through large lists -->
+
+      <ion-list show-delete="data.showDelete" sortable draggable=".card" sorted="onReorder($fromIndex, $toIndex)" show-reorder="data.showReorder">
+
+        <ion-item ng-repeat="note in notes | orderBy:'-date'" class="item-remove-animate" ng-click="edit(note)" on-release="release($event)">
+          <span>{{note.title}}</span><br>Created by: {{note.ownerFullname}}
+          <span class="right">{{note.date | date : shortDate : timezone}} </span><br>
+          <ion-delete-button class="ion-minus-circled" ng-click="onItemDelete(item)">
+          </ion-delete-button>
+          <ion-option-button class="button-assertive" ng-click="delete(note)">
+            Delete
+          </ion-option-button>
+          <ion-option-button class="button-calm" ng-click="share(note)">
+            Share
+          </ion-option-button>
+          <ion-reorder-button class="ion-navicon" on-reorder="moveItem(item, $fromIndex, $toIndex)"></ion-reorder-button>
+        </ion-item>
+        <style>
+          .popup-head {
+            display:none;
+          }
+        </style>
+    </ion-content>
+  </div>

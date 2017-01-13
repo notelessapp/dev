@@ -1,0 +1,50 @@
+<ion-side-menus enable-menu-with-back-views="false" ng-controller="MenuCtrl">
+  <ion-side-menu-content edge-drag-threshold="30">
+    <ion-nav-bar class="bar-positive">
+      <ion-nav-back-button>
+      </ion-nav-back-button>
+
+      <ion-nav-buttons side="left">
+        <button class="button button-icon button-clear ion-navicon" menu-toggle="left">
+        </button>
+      </ion-nav-buttons>
+    </ion-nav-bar>
+    <ion-nav-view name="menuContent"></ion-nav-view>
+  </ion-side-menu-content>
+
+  <ion-side-menu side="left">
+    <ion-content class="custom">
+      <ion-list>
+        <ion-item menu-close href="#/app/profile">
+          <div class="item item-avatar" style="border-style:none;">
+            <img ng-src="{{avatar}}">
+
+            <h2>{{username}}</h2>
+            <p ng-if="occupation">{{occupation}}</p>
+            <p ng-if="!occupation">No occupation</p>
+          </div>
+        </ion-item>
+        <ion-item menu-close href="#/app/mynotes">
+          Notes
+          <i class="ion-ios-paper-outline right larger"></i>
+        </ion-item>
+
+        <!-- <ion-item menu-close href="#/app/groups">
+          Groups
+        </ion-item> -->
+        <ion-item menu-close href="#/app/friends">
+          Friends
+          <i class="ion-person-stalker right larger"></i>
+        </ion-item>
+        <ion-item menu-close href="#/app/profile">
+          Profile
+          <i class="ion-gear-a right larger"></i>
+        </ion-item>
+        <ion-item menu-close ng-click="logout()" href="">
+          Logout
+          <i class="ion-ios-locked-outline right larger"></i>
+        </ion-item>
+      </ion-list>
+    </ion-content>
+  </ion-side-menu>
+</ion-side-menus>

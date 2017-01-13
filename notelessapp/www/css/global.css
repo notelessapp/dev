@@ -1,0 +1,110 @@
+/* here we have all the global parameters, like .block-auto etc. */
+
+/* -- minify and combine style sheets and make them external, then the browser or device can cache it?
+ of the CSS is in multiple files, there are multiple requests made before the page can be displayed
+ on a browser, therefore slowing down the pageload */
+/*body  {font-family: 'Roboto';}*/
+.popup-container .popup {
+  width:100%;
+  background-color:white;
+  opacity:1;
+}
+
+.popup-body {
+  text-align:center;
+}
+.popup-title {
+  font-size:22px;
+}
+
+.larger {
+    font-size: 25px !important;
+}
+
+.custom {
+  background-color: #3f4041 !important; /* This sets the background color*/
+ }
+
+/*Set the background to transparent for ion-item*/
+.custom .item {
+  background-color: transparent;
+  border:none;   /*Removes all borders*/
+  border-top: 1px solid;   /*Top Border for each menu item*/
+  border-bottom:2px solid;   /*Bottom border for each menu item*/
+  border-color: #666;   /*Sets colors for top and bottom border*/
+  color: white;    /*Text color for each item*/
+}
+
+/*Changes the border for the last item*/
+.custom .item:last-child {
+  border-bottom: 1px solid #666;
+}
+
+.custom .item-complex .item-content, .dark .item-radio .item-content {
+  background-color: transparent;
+}
+
+/*Just makes the type white*/
+.custom h2,
+.custom h3,
+.custom p,
+.custom a {
+  color: white;  /*Text color for each item, overrides the color property above*/
+}
+
+.mg-top-small {
+  margin-top:20px;
+}
+
+.mg-top-medium {
+  margin-top:40px;
+}
+
+.mg-top-large {
+  margin-top:60px;
+}
+
+.searchFriends {
+  padding:0px;
+  margin:0px;
+}
+
+.searchHeight {
+  height: 60px;
+}
+
+h1 {
+  margin-bottom:0px;
+  background: -webkit-linear-gradient(#387ef5, #0a3e96);
+  background: -o-linear-gradient(#387ef5, #0a3e96);
+  background: linear-gradient(#387ef5, #0a3e96);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-size:4.5em;
+  text-align:center;
+}
+
+.LoginContainer {
+  width: 100%;
+  max-width: 450px;
+  padding: 26px;
+  margin: 0 auto;
+}
+
+.loginMiddle {
+  background: #FFF;
+  border-radius: 3px;
+  box-shadow: 0 3px 4px rgba(0,0,0,0.3);
+  margin: 20px 0;
+  height: 120px;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  cursor: pointer;
+}
+
+
+
+/*.backdrop {
+  background-color:white;
+}*/

@@ -1,0 +1,34 @@
+<ion-view view-title="Profile settings" ng-init="getInfo()">
+  <ion-content>
+    <div class="card-container padding">
+
+        <label class="item item-input">
+          <i class="icon ion-person placeholder-icon larger"></i>
+          <input type="text" placeholder="{{username}}" ng-model="user.name">
+        </label>
+        <label class="item item-input">
+          <i class="icon ion-locked placeholder-icon larger"></i>
+          <input type="password" placeholder="Change your password" ng-model="user.password">
+        </label>
+
+        <label class="item item-input">
+          <i class="icon ion-card placeholder-icon larger"></i>
+          <input type="text" placeholder="{{fullname}}" ng-model="user.fullname">
+        </label>
+
+        <label class="item item-input">
+          <i class="icon ion-briefcase placeholder-icon larger"></i>
+          <input type="text" placeholder="{{occupation}}" ng-model="user.occupation">
+        </label>
+
+        <label class="item item-input">
+          <i class="icon ion-at placeholder-icon larger"></i>
+          <input type="text" placeholder="{{email}}" ng-model="user.email">
+        </label>
+
+      <button class="button button-full button-balanced" ng-click="updateUser()">
+        Update
+      </button>
+    </div>
+  </ion-content>
+</ion-view>

@@ -1,0 +1,24 @@
+<ion-view view-title="" ng-init="getFriends()">
+
+<ion-content>
+
+  <ion-list class="text-center">
+
+    <ion-item ng-repeat="friend in friends | filter:{status:'Requested'}">
+
+      <div class="list">
+
+          <a class="item item-avatar" href="#">
+            <img src="{{avatar}}">
+            <h2>{{friend.friendName}}</h2>
+            <p>Your request was sent the {{friend.date | date : shortDate : timezone}}</p>
+          </a>
+
+
+      </div>
+    </ion-item>
+  </ion-list>
+
+
+  </ion-content>
+</ion-view>

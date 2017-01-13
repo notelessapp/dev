@@ -1,0 +1,30 @@
+<ion-view view-title="" ng-init="getFriends()">
+<ion-content>
+    <ion-list class="text-center">
+        <ion-item ng-repeat="friend in friends | filter:{status:'Pending'}">
+
+        <div class="list">
+
+            <a class="item item-avatar" href="#">
+              <img src="{{avatar}}">
+              <h2>{{friend.friendName}}</h2>
+              <p>{{friend.friendName}} sent you a request the {{friend.date | date : shortDate : timezone}}</p>
+            </a>
+
+            <div class="item item-button-right">
+         Accept/Decline
+    <div class="buttons">
+        <button class="button button-positive" ng-click="acceptFriend(friend)">
+           <i class="icon ion-checkmark"></i>
+        </button>
+
+        <button class="button button-assertive" ng-click="declineFriend(friend)">
+           <i class="icon ion-close"></i>
+        </button>
+   </div>
+  </div>
+        </div>
+      </ion-item>
+    </ion-list>
+  </ion-content>
+</ion-view>
